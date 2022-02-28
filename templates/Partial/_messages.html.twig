@@ -1,0 +1,10 @@
+<div class="container">
+  {% for classStyle, messages in app.flashes %}
+    {% for message in messages %}
+      <div class="mt-2 alert alert-dismissible alert-{{ classStyle }}">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <p class="mb-0">{{ message }}</p>
+      </div>
+    {% endfor %}
+  {% endfor %}
+</div>

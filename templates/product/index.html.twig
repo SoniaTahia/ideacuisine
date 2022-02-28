@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+  <div class="col-12 center mt-0 d-flex flex-column justify-content-center">
+    <div class="row">
+      <h1>Nos produits
+        {% if categoryName != "" %}{{ categoryName }}
+        {% endif %}
+      </h1>
+
+      {% for product in products %}
+        <div class="card bg-secondary text-white col-12 mb-3 mx-2 " style="max-width: 24rem;">
+          <div class="card-header bg-secondary">{{ product.category.name }}</div>
+          <div class="card-body d-flex flex-column align-items-center">
+            <h4>{{ product.name }}</h4>
+            {% if product.price %}
+              <h5 class="card-title">Prix :
+                {{ product.price }}
+                TND</h5>
+            {% else %}
+              <h4 class="card-title">Prix : Sur Devis</h4>
+            {% endif %}
+            {% if product.images != [] %}
+              <img src="/upload/{{ product.images.0.picture }}" alt="{{ product.images.0.alt }}" class="productPic2">
+            {% else %}
+              Pas d'image
+            {% endif %}
+            <a class="btn btn-light btn-sm mb-2" href="{{ path('product_show', {'id': product.id}) }}">Voir</a>
+            <a class="btn btn-danger btn-sm" href="{{ path('product_show', {'id': product.id}) }}">Acheter</a>
+          </div>
+        </div>
+      {% else %}
+        <tr>
+          <td colspan="5">Aucun produit enregistré</td>
+        </tr>
+      {% endfor %}
+      <ul class="pagination">
+        <li class="page-product {% if actualPage == 1 %}disabled{% endif %}">
+          <a class="page-link" href="{{ path('product_index', {'page': actualPage - 1}) }}">&laquo;</a>
+        </li>
+        {% for page in pages %}
+          <li class="page-product {% if actualPage == page %}active{% endif %}">
+            <a class="page-link" href="{{ path('product_index', {'page': page}) }}">{{ page }}</a>
+          </li>
+        {% endfor %}
+        <li class="page-product {% if actualPage == lastPage %}disabled{% endif %}">
+          <a class="page-link" href="{{ path('product_index', {'page': actualPage + 1}) }}">&raquo;</a>
+        </li>
+      </ul>
+
+      {% if is_granted('ROLE_ADMIN') %}
+        <a class="btn btn-secondary" href="{{ path('product_new') }}">Ajouter un produit</a>
+        <a class="my-3" href="{{ path('admin') }}">Retour à la page admin</a>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}

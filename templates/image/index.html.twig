@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Image index{% endblock %}
+
+{% block body %}
+  <h1>Liste des images</h1>
+  <div class="center mt-0 d-flex flex-column justify-content-between">
+    <div class="row">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Image Id</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Alt</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for image in images %}
+            <tr>
+              <td>{{ image.id }}</td>
+              <td>{{ image.name }}</td>
+              <td>{{ image.alt }}</td>
+              <td>
+                <a href="{{ path('image_show', {'id': image.id}) }}">Voir</a>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="4">Aucune photo enregistrée</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{{ path('image_new') }}">Ajouter des photos</a>
+    </div>
+  </div>
+{% endblock %}

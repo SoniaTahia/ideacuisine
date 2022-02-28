@@ -1,0 +1,161 @@
+<?php
+
+namespace App\Controller;
+
+
+use App\Entity\Image;
+use App\Entity\Product;
+use App\Entity\Category;
+use App\Form\ProductType;
+use App\Service\UploadService;
+use App\Repository\ImageRepository;
+use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+#[Route('/product')]
+class ProductController extends AbstractController
+{
+    #[Route('/{category}/{page}/{image}',
+    name: 'product_index', 
+    defaults: ['category' => 0, 'page'=> 1, 'image' => 3],  
+    requirements: ["page" => "\d+", "category" => "\d+", "image" => "\d+"], 
+    methods: ['GET'])]
+    public function index(?Category $category, ?Image $image, int $page, ProductRepository $productRepository, ImageRepository $imageRep): Response
+    {   
+        $productPerPage = 9;
+        $productsCount = $productRepository->count([]);
+        $pages = [];
+        $pageCounter = 0;
+        for ($i = 0; $i < $productsCount; $i += $productPerPage) {
+            $pageCounter++;
+            $pages[] = $pageCounter;
+        }
+        
+        if ($page > $productsCount / $productPerPage) {
+            $page = $pageCounter;
+        }
+          // check if $page is consistent
+        if ($page < 1) {
+            $page = 1;
+        }
+        if (!$category) {
+            $productCriteria = [];
+            $categoryName = "";
+        } else {
+            $productCriteria = [
+                'category' => $category,
+            ];
+            $categoryName = $category->getName();
+        }
+
+        if (!$image) {
+        $imageCriteria = [];
+        $imagePicture = "";
+        } else{
+            $imageCriteria = [
+                'images' => $images,
+            ];
+            $imagePicture = $image->getPicture();
+        }
+
+        $products = $productRepository->findBy(
+            $productCriteria,
+            [
+                "name" => "ASC",
+            ],
+            $productPerPage,
+            ($page - 1) * $productPerPage,
+        );
+        return $this->render('product/index.html.twig', [
+            'products' => $products,
+            'actualPage' => $page,
+            'pages' => $pages,
+            'lastPage' => $pageCounter,
+            'categoryName' => $categoryName,
+            'imagePicture' => $imagePicture,
+        ]);
+        
+    }
+
+    #[Route('/new', name: 'product_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($product);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
+        }
+       
+        return $this->renderForm('product/new.html.twig', [
+            'product' => $product,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/show', name: 'product_show', methods: ['GET'])]
+    public function show(Product $product, ImageRepository $imageRep): Response
+    {
+        $imageCriteria = [
+            'product' => $product,
+        ];
+        $images = $imageRep->findBy($imageCriteria);
+        
+        return $this->render('product/show.html.twig', [
+            'product' => $product,
+            'images' => $images,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'product_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Product $product, EntityManagerInterface $entityManager, UploadService $uploadService, ImageRepository $imageRep): Response
+    {
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        $imageCriteria = [
+            'product' => $product,
+        ];
+        $images = $imageRep->findBy($imageCriteria);
+        
+        
+        return $this->renderForm('product/edit.html.twig', [
+            'product' => $product,
+            'form' => $form,
+            'images' => $images
+        ]);
+    }
+
+    #[Route('/{id}/delete', name: 'product_delete', methods: ['POST'])]
+    public function delete(Request $request, Product $product, EntityManagerInterface $entityManager, UploadService $uploadService): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+            //$uploadService->delete($product->getImages());
+
+            //$images = $product->getImages();
+            //dd($images);
+           
+            $entityManager->remove($product);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
+    }
+}
+

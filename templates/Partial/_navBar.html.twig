@@ -1,0 +1,40 @@
+<nav class="nav col-12 bg-light flex-column bg-light">
+  <img src="/upload/LOGO_FINAL_IDEA_CUISINE.png" class="logo pb-5" alt="logo"/>
+  <ul class="bg-transparent navbar-nav ms-3">
+    <li class="nav-item">
+      <a class="nav-link active link-dark disable" aria-current="page" href="{{ path('home')}}">Accueil</a >
+    </li>
+    <li class="nav-item dropend">
+      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="{{ path('category_index') }}" role="button" aria-haspopup="true" aria-expanded="false">Nos produits</a>
+      <div class="dropdown-menu">
+        {{ render(controller("App\\Controller\\NavBarController::navBarCats")) }}
+      </div>
+    </li>
+    {% if is_granted('ROLE_ADMIN') %}
+      <li class="nav-item">
+        <a class="nav-link link-dark" href="{{ path('admin') }}">Page Admin</a>
+      </li>
+    {% endif %}
+    {% if app.user %}
+     <li class="nav-item">
+        <a class="nav-link link-dark" href="{{ path('user_profile') }}">Mon Compte</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link link-dark" href="{{ path('home_contact_user')}}">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link link-dark" href="{{ path('logout') }}">Deconnexion</a>
+      </li>
+    {% else %}
+      <li class="nav-item">
+        <a class="nav-link link-dark" href="{{ path('home_contact_info')}}">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link link-dark" href="{{ path('app_register')}}">Inscription</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link link-dark" href="{{ path('login') }}">Connexion</a >
+      </li>
+    {% endif %}
+  </ul>
+</nav>

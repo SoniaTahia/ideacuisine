@@ -1,0 +1,3 @@
+{% for cat in categories %}
+  <a class="dropdown-item" href="{{ path('product_index', {'category': cat.id}) }}">{{ cat.name }}</a>
+{% endfor %}
