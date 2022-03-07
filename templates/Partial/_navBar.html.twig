@@ -2,39 +2,44 @@
   <img src="/upload/LOGO_FINAL_IDEA_CUISINE.png" class="logo pb-5" alt="logo"/>
   <ul class="bg-transparent navbar-nav ms-3">
     <li class="nav-item">
-      <a class="nav-link active link-dark disable" aria-current="page" href="{{ path('home')}}">Accueil</a >
+      <a class="nav-link active link-dark disable" aria-current="page" href="{{ path('home')}}">
+        <i class="bi bi-house-fill"></i> Accueil</a >
     </li>
     <li class="nav-item dropend">
-      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="{{ path('category_index') }}" role="button" aria-haspopup="true" aria-expanded="false">Nos produits</a>
+      <a class="nav-link link-dark dropdown-toggle" data-bs-toggle="dropdown" href="{{ path('category_index') }}" role="button" aria-haspopup="true" aria-expanded="false"><i class="bi bi-shop"></i> Nos produits</a>
       <div class="dropdown-menu">
         {{ render(controller("App\\Controller\\NavBarController::navBarCats")) }}
       </div>
     </li>
     {% if is_granted('ROLE_ADMIN') %}
       <li class="nav-item">
-        <a class="nav-link link-dark" href="{{ path('admin') }}">Page Admin</a>
+        <a class="nav-link link-dark" href="{{ path('admin') }}"><i class="bi bi-gear"></i> Page Admin</a>
       </li>
     {% endif %}
     {% if app.user %}
-     <li class="nav-item">
-        <a class="nav-link link-dark" href="{{ path('user_profile') }}">Mon Compte</a>
+      <li class="nav-item">
+        <a class="nav-link link-dark" href="{{ path('user_profile') }}"><i class="bi bi-person-circle"></i> Mon Compte</a>
+      </li>
+      <li>
+        <a class="nav-link link-dark" href="{{ path('cart_show') }}"><i class="bi bi-cart3"></i> Mon panier</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link link-dark" href="{{ path('home_contact_user')}}">Contact</a>
+        <a class="nav-link link-dark" href="{{ path('home_contact_user')}}"><i class="bi bi-envelope"></i> Contact</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link link-dark" href="{{ path('logout') }}">Deconnexion</a>
+        <a class="nav-link link-dark" href="{{ path('logout') }}"><i class="bi bi-box-arrow-left"></i> Deconnexion</a>
       </li>
     {% else %}
       <li class="nav-item">
-        <a class="nav-link link-dark" href="{{ path('home_contact_info')}}">Contact</a>
+        <a class="nav-link link-dark" href="{{ path('home_contact_info')}}"><i class="bi bi-envelope"></i> Contact</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link link-dark" href="{{ path('app_register')}}">Inscription</a>
+        <a class="nav-link link-dark" href="{{ path('app_register')}}"><i class="bi bi-person-plus"></i> Inscription</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link link-dark" href="{{ path('login') }}">Connexion</a >
+        <a class="nav-link link-dark" href="{{ path('login') }}"><i class="bi bi-box-arrow-in-right"></i> Connexion</a >
       </li>
     {% endif %}
   </ul>
+
 </nav>

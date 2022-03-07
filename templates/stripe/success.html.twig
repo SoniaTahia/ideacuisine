@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon paiement{% endblock %}
+
+{% block body %}
+  <div class="center mt-0 d-flex flex-column justify-content-between">
+    <div class="row">
+      <h1>Votre commande a été validée avec succès</h1>
+
+      <h2>Votre commande</h2>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Produit</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Quantité</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in purchases %}
+            <tr class="table-active">
+              <td>{{ row.product.name }}</td>
+              <td>{{ row.unitPrice }}</td>
+              <td>{{ row.quantity }}</td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="5">Aucun produit dans votre panier</td>
+            </tr>
+          {% endfor %}
+          <tr>
+            <td colspan="2">Total :
+            </td>
+            <td>{{ invoice.price }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>Votre adresse de livraison</h2>
+
+      <p>{{ invoice.name }} {{ invoice.firstname }}</p>
+      <p>{{ invoice.adress }}</p>
+      <p>{{ invoice.postCode }} {{ invoice.town }}</p>
+      <p>{{ invoice.country }}</p>
+
+      <h3>Statut de la commande : Payée</h3>
+
+    </div>
+  </div>
+
+{% endblock %}

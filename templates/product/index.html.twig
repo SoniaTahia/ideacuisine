@@ -28,7 +28,11 @@
               Pas d'image
             {% endif %}
             <a class="btn btn-light btn-sm mb-2" href="{{ path('product_show', {'id': product.id}) }}">Voir</a>
-            <a class="btn btn-danger btn-sm" href="{{ path('product_show', {'id': product.id}) }}">Acheter</a>
+            {% if app.user %}
+            <a class="btn btn-danger btn-sm" href="{{ path('cart_add', {'product': product.id}) }}">Acheter</a>
+            {% else %}
+             <a class="btn btn-danger btn-sm" href="{{ path('home_contact_info')}}">Acheter</a>
+            {% endif %}
           </div>
         </div>
       {% else %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier{% endblock %}
+
+{% block body %}
+  <div class="center mt-0 d-flex flex-column justify-content-between">
+    <div class="row">
+      <h1>Mon Panier</h1>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Produit</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Quantité</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in cartProducts %}
+            <tr class="table-active">
+              <td>{{ row.product.name }}</td>
+              <td>{{ row.product.price }}</td>
+              <td>
+                <a href="{{ path('cart_less', {'product' : row.product.id})}}">moins</a>
+                {{ row.qty }}
+                <a href="{{ path('cart_add', {'product' : row.product.id})}}">plus</a>
+                <a href="{{ path('cart_remove', {'product' : row.product.id})}}">supprimer</a>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="5">Aucun produit dans votre panier</td>
+            </tr>
+          {% endfor %}
+          <tr>
+            <td colspan="2">Total :
+            </td>
+            <td>{{ total }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <a class="btn btn-secondary" href="{{ path('product_index') }}">Continuer mes achats</a>
+      {% if cartProducts != [] %}
+        <a class="btn btn-secondary" href="{{ path('invoice_new') }}">Valider mon panier</a>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}
