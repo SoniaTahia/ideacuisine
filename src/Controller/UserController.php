@@ -82,7 +82,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/profile', name: 'user_profile', methods: ['GET'])]
-    public function profile(UserRepository $userRepository): Response
+    public function profile(User $user): Response
     {
         $user = $this->getUser();
         
@@ -91,7 +91,7 @@ class UserController extends AbstractController
         ]); 
 
     }
-     #[Route('/{id}/profile_dit', name: 'profile_edit', methods: ['GET', 'POST'])]
+     #[Route('/{id}/profile_edit', name: 'profile_edit', methods: ['GET', 'POST'])]
     public function profileEdit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();

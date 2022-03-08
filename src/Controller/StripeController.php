@@ -82,6 +82,7 @@ class StripeController extends AbstractController
             'purchases' => $purchases,
         ]);
     }
+    
     #[Route('/stripe/{invoice}/cancel', name: 'stripe_error_payment')]
     public function error(Invoice $invoice): Response
     {

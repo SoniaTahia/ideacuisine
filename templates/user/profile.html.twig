@@ -40,6 +40,8 @@
         </tbody>
       </table>
 
+      <a class="my-3 btn btn-secondary" href="{{ path('user_invoice', {'id': user.id}) }}">Mes achats</a>
+
       <a class="my-3 btn btn-secondary" href="{{ path('profile_edit', {'id': user.id}) }}">Modifier</a>
 
       {{ include('user/_delete_form.html.twig') }}

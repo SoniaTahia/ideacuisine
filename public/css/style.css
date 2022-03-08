@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Electrolize", sans-serif;
+  text-decoration-line: none;
 }
 
 body {
@@ -66,6 +67,5 @@ h5 {
   margin-bottom: 10pt;
 }
 
-.home_title {
-  
-}
+
+

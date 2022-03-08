@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use DateTime;
+
 use App\Entity\Invoice;
+use App\Entity\Product;
 use App\Entity\Purchase;
 use App\Form\InvoiceType;
+use App\Repository\InvoiceRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,21 +19,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class InvoiceController extends AbstractController
 {
-    #[Route('/invoice', name: 'invoice')]
-    public function index(): Response
+    #[Route('/invoice', name: 'invoice_index')]
+    public function index(InvoiceRepository $invoiceRep): Response
     {
 
-        // compte stripe
-
-        // récupérer les données de livraison
-
-        // créer les données dans la BDD
-
-        // faire payer
-
-        // vider le panier et remercier
         return $this->render('invoice/index.html.twig', [
-            'controller_name' => 'InvoiceController',
+            'invoices' => $invoiceRep->findAll(),
+        ]);
+    }
+
+    #[Route('/{id}/show', name: 'invoice_show', methods: ['GET'])]
+    public function show(Invoice $invoice, Product $product): Response
+    {
+        $user = $this->getUser();
+        return $this->render('invoice/show.html.twig', [
+            'invoice' => $invoice,
+            'product' => $product,
         ]);
     }
 
@@ -87,6 +91,46 @@ class InvoiceController extends AbstractController
             'form' => $form,
             'cartProducts' => $fullCart,
             'total' => $total,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'invoice_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(InvoiceType::class, $invoice);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('invoice_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('invoice/edit.html.twig', [
+            'invoice' => $invoice,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/delete', name: 'invoice_delete', methods: ['POST'])]
+    public function delete(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($invoice);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('invoice_index', [], Response::HTTP_SEE_OTHER);
+    }
+   
+    #[Route('/{id}/show', name: 'invoice_user_invoice', methods: ['GET'])]
+    public function userInvoice(Invoice $invoice, Product $product, SessionInterface $session): Response
+    {
+        $user = $this->getUser();
+        
+        return $this->render('invoice/user_invoice.html.twig', [
+            'invoice' => $invoice,
+            'product' => $product,
         ]);
     }
 }

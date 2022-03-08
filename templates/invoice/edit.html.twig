@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la facture{% endblock %}
+
+{% block body %}
+  <div class="center mt-0 d-flex flex-column justify-content-between">
+    <div class="row">
+      <h1>Modifier la facture</h1>
+
+      {{ include('invoice/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+      {{ include('invoice/_delete_form.html.twig') }}
+
+      <a href="{{ path('invoice_index') }}">Retour au menu Facture</a>
+    </div>
+  </div>
+
+{% endblock %}
