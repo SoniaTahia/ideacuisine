@@ -5,10 +5,12 @@ namespace App\Form;
 use App\Form\Builder\Contact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -66,6 +68,27 @@ class ContactType extends AbstractType
                         'max' => 1000,
                         'maxMessage' => "le sujet ne doit pas excéder {{ limit }} caractères"
                     ]),
+                ],
+            ])
+            ->add('file', FileType::class, [
+                'label' => "Télecharger une pèce jointe (format .pdf, .jpeg, .jpg, ",
+                'required' => false,
+                'multiple' => false,
+                'mapped' => false,
+                'attr' => [
+                    "placeholder" => "Télecharger une pèce jointe"
+                ],
+                'constraints' =>[
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/vnd.dwg'
+                        ],
+                    ]),
+                    
                 ],
             ]);
     }

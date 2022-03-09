@@ -6,10 +6,11 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -42,7 +43,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'user_show', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
         
@@ -70,7 +71,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'user_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
@@ -82,8 +83,10 @@ class UserController extends AbstractController
     }
 
     #[Route('/profile', name: 'user_profile', methods: ['GET'])]
-    public function profile(User $user): Response
+    #[IsGranted("ROLE_USER")]
+    public function profile(): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
         
         return $this->render('user/profile.html.twig', [

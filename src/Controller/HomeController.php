@@ -7,6 +7,7 @@ use App\Tool\DateTool;
 use App\Entity\Category;
 use App\Form\ContactType;
 use App\Form\Builder\Contact;
+use App\Service\UploadService;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
 use App\Repository\CategoryRepository;
@@ -39,14 +40,23 @@ class HomeController extends AbstractController
     }
 
     #[Route('/contact_user', name: 'home_contact_user')]
-    public function contactUser(Request $request, MailerInterface $mailer): Response
+    public function contactUser(Request $request, MailerInterface $mailer, UploadService $upLoadService): Response
     {   
         
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {          
+        if ($form->isSubmitted() && $form->isValid()) {  
+             
+            $contactFile = $form->get('file')->getData();
+            
+            if ($contactFile) {
+                $file = $upLoadService->upload($contactFile);
+                $contact->setFile($file);
+            }   
+            $projectPath = $request->server->get("DOCUMENT_ROOT");
+            
             $email = new TemplatedEmail();
             $email->to(new Address("admin@ideacuisine.com.tn", "Idea Cuisine"))
                   ->from($contact->getEmail())
@@ -54,8 +64,12 @@ class HomeController extends AbstractController
                   ->htmlTemplate('email/contact.html.twig')
                   ->context([
                       "message" => $contact->getMessage(),
-                  ]);
-            $mailer->send($email);
+                  ])
+                  ->attachFromPath($projectPath . 'upload/'. $contact->getFile()); 
+                    
+                  
+                  $mailer->send($email);
+            
             $this->addFlash("success", "Votre message a bien été envoyé");
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }

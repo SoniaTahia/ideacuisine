@@ -11,6 +11,8 @@ class Contact
     private string $subject;
 
     private string $message;
+
+    private string $file;
     
 
 
@@ -70,6 +72,26 @@ class Contact
     public function setMessage($message)
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    /**
+     * Get the file
+     */ 
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * Set the file
+     *
+     * @return  self
+     */ 
+    public function setFile($file)
+    {
+        $this->file = $file;
 
         return $this;
     }
