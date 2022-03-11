@@ -64,10 +64,12 @@ class HomeController extends AbstractController
                   ->htmlTemplate('email/contact.html.twig')
                   ->context([
                       "message" => $contact->getMessage(),
-                  ])
-                  ->attachFromPath($projectPath . 'upload/'. $contact->getFile()); 
-                    
-                  
+                  ]);
+
+                  if ($contactFile = [] ){
+                        $email->attachFromPath($projectPath . 'upload/'. $contact->getFile());
+                        $upLoadService->delete($contact->getFile());
+                  }
                   $mailer->send($email);
             
             $this->addFlash("success", "Votre message a bien été envoyé");

@@ -2,21 +2,20 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Electrolize", sans-serif;
-  text-decoration-line: none;
+  font-family: "Electrolize", sans-serif; 
+}
+.header {
+  width: 200px;
+  height: 800px;
 }
 
-body {
-  width: 100%;
-  height: 100%;
- 
-}
 .logo {
   height: 150px;
   width: 200px;
 }
 .nav {
   height: 100vh;
+  width: 200px;
   color: black;
 }
 
@@ -24,10 +23,12 @@ body {
   height: 30px;
   width: 180px;
 }
+
 .container-fluid {
-  background-color: rgb(163, 163, 161);
+  background-color: rgb(163, 163, 163);
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 .carousel-item {
@@ -35,7 +36,9 @@ body {
 }
 .header {
   width: 250px;
+  height: 100%;
 }
+
 h1 {
   font-size: 100px;
   color: white;
@@ -45,11 +48,12 @@ h1 {
   height: 150px;
   width: 220px;
   border: solid 5px white;
-  border-radius: 1%;
+  border-radius: 2%;
 }
 
-h5 {
+.cat a {
   color: white;
+  text-decoration: none;
 }
 
 .loginPic {
@@ -67,5 +71,17 @@ h5 {
   margin-bottom: 10pt;
 }
 
+.icons {
+  color: black;
+}
+
+.policy {
+  font-size: 10px;
+}
+
+.card {
+  margin: 0;
+  padding: 0;
+}
 
 

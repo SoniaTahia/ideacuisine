@@ -20,10 +20,16 @@
               <td>{{ row.product.name }}</td>
               <td>{{ row.product.price }}</td>
               <td>
-                <a href="{{ path('cart_less', {'product' : row.product.id})}}">moins</a>
+                <a href="{{ path('cart_less', {'product' : row.product.id})}}">
+                  <i class="icons bi bi-dash-circle"></i>
+                </a>
                 {{ row.qty }}
-                <a href="{{ path('cart_add', {'product' : row.product.id})}}">plus</a>
-                <a href="{{ path('cart_remove', {'product' : row.product.id})}}">supprimer</a>
+                <a href="{{ path('cart_add', {'product' : row.product.id})}}">
+                  <i class="icons bi bi-plus-circle"></i>
+                </a>
+                <a href="{{ path('cart_remove', {'product' : row.product.id})}}">
+                  <i class="icons bi bi-trash"></i>
+                </a>
               </td>
             </tr>
           {% else %}
@@ -39,9 +45,9 @@
           </tr>
         </tbody>
       </table>
-      <a class="btn btn-secondary" href="{{ path('product_index') }}">Continuer mes achats</a>
+      <a class="btn btn-secondary mb-3" href="{{ path('product_index') }}">Continuer mes achats</a>
       {% if cartProducts != [] %}
-        <a class="btn btn-secondary" href="{{ path('invoice_new') }}">Valider mon panier</a>
+        <a class="btn btn-secondary mt-3" href="{{ path('invoice_new') }}">Valider mon panier</a>
       {% endif %}
     </div>
   </div>

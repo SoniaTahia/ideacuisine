@@ -25,10 +25,10 @@ class ProductController extends AbstractController
     defaults: ['category' => 0, 'page'=> 1, 'image' => 3],  
     requirements: ["page" => "\d+", "category" => "\d+", "image" => "\d+"], 
     methods: ['GET'])]
-    public function index(?Category $category, ?Image $image, int $page, ProductRepository $productRepository, ImageRepository $imageRep): Response
+    public function index(?Category $category, ?Image $image, int $page, ProductRepository $productRep, Product $product, ImageRepository $imageRep): Response
     {   
-        $productPerPage = 9;
-        $productsCount = $productRepository->count([]);
+        $productPerPage = 6;
+        $productsCount = $productRep->count([]);
         $pages = [];
         $pageCounter = 0;
         for ($i = 0; $i < $productsCount; $i += $productPerPage) {
@@ -63,10 +63,10 @@ class ProductController extends AbstractController
             $imagePicture = $image->getPicture();
         }
 
-        $products = $productRepository->findBy(
+        $products = $productRep->findBy(
             $productCriteria,
             [
-                "name" => "ASC",
+                'name' => "ASC",
             ],
             $productPerPage,
             ($page - 1) * $productPerPage,
@@ -80,7 +80,8 @@ class ProductController extends AbstractController
             'imagePicture' => $imagePicture,
         ]);
         
-    }
+    
+}
 
     #[Route('/new', name: 'product_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -143,13 +144,14 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'product_delete', methods: ['POST'])]
-    public function delete(Request $request, Product $product, EntityManagerInterface $entityManager, UploadService $uploadService): Response
+    public function delete(Request $request, Product $product, EntityManagerInterface $entityManager, ImageRepository $imageRepo, UploadService $uploadService): Response
     {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
-            //$uploadService->delete($product->getImages());
-
-            //$images = $product->getImages();
-            //dd($images);
+            $images = $product->getImages();
+            foreach ($images as $image) {
+                $uploadService->delete($image->getPicure());
+                $imageRepo->delete($image);
+            }
            
             $entityManager->remove($product);
             $entityManager->flush();

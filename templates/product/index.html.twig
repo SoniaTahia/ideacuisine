@@ -3,15 +3,15 @@
 {% block title %}Liste des produits{% endblock %}
 
 {% block body %}
-  <div class="col-12 center mt-0 d-flex flex-column justify-content-center">
-    <div class="row">
-      <h1>Nos produits
+  <div class="center mt-0 d-flex flex-column justify-content-center">
+    <div class="row bg-white">
+      <h1 class="text-secondary d-flex justify-content-center">Nos produits
         {% if categoryName != "" %}{{ categoryName }}
         {% endif %}
       </h1>
 
       {% for product in products %}
-        <div class="card bg-secondary text-white col-12 mb-3 mx-2 " style="max-width: 24rem;">
+        <div class="card bg-secondary text-white mb-4 mx-4 " style="max-width: 24rem;">
           <div class="card-header bg-secondary">{{ product.category.name }}</div>
           <div class="card-body d-flex flex-column align-items-center">
             <h4>{{ product.name }}</h4>
@@ -22,17 +22,26 @@
             {% else %}
               <h4 class="card-title">Prix : Sur Devis</h4>
             {% endif %}
-            {% if product.images != [] %}
+            {#{% if product.images != [] %}#}
+            {% if product.images is not empty %}
               <img src="/upload/{{ product.images.0.picture }}" alt="{{ product.images.0.alt }}" class="productPic2">
             {% else %}
               Pas d'image
             {% endif %}
-            <a class="btn btn-light btn-sm mb-2" href="{{ path('product_show', {'id': product.id}) }}">Voir</a>
-            {% if app.user %}
-            <a class="btn btn-danger btn-sm" href="{{ path('cart_add', {'product': product.id}) }}">Acheter</a>
-            {% else %}
-             <a class="btn btn-danger btn-sm" href="{{ path('home_contact_info')}}">Acheter</a>
-            {% endif %}
+            <div class="d-flex">
+              <a class="btn btn-light btn-sm mx-2" href="{{ path('product_show', {'id': product.id}) }}">Voir</a>
+              {% if product.stock != 0 %}
+                {% if app.user %}
+                  <a class="btn btn-danger btn-sm" href="{{ path('cart_add', {'product': product.id}) }}">Acheter</a>
+                {% else %}
+                  <a class="btn btn-danger btn-sm" href="{{ path('home_contact_info')}}">Acheter</a>
+                {% endif %}
+              {% else %}
+                <tr>
+                  <td colspan="5">Produit en rupture de stock</td>
+                </tr>
+              {% endif %}
+            </div>
           </div>
         </div>
       {% else %}
@@ -40,17 +49,18 @@
           <td colspan="5">Aucun produit enregistré</td>
         </tr>
       {% endfor %}
-      <ul class="pagination">
-        <li class="page-product {% if actualPage == 1 %}disabled{% endif %}">
-          <a class="page-link" href="{{ path('product_index', {'page': actualPage - 1}) }}">&laquo;</a>
+
+      <ul class="pagination d-flex justify-content-center">
+        <li class="page-product bg-secondary {% if actualPage == 1 %}disabled{% endif %}">
+          <a class="page-link text-secondary" href="{{ path('product_index', {'page': actualPage - 1}) }}">&laquo;</a>
         </li>
         {% for page in pages %}
           <li class="page-product {% if actualPage == page %}active{% endif %}">
-            <a class="page-link" href="{{ path('product_index', {'page': page}) }}">{{ page }}</a>
+            <a class="page-link text-secondary" href="{{ path('product_index', {'page': page}) }}">{{ page }}</a>
           </li>
         {% endfor %}
         <li class="page-product {% if actualPage == lastPage %}disabled{% endif %}">
-          <a class="page-link" href="{{ path('product_index', {'page': actualPage + 1}) }}">&raquo;</a>
+          <a class="page-link text-secondary" href="{{ path('product_index', {'page': actualPage + 1}) }}">&raquo;</a>
         </li>
       </ul>
 
@@ -60,5 +70,4 @@
       {% endif %}
     </div>
   </div>
-
 {% endblock %}
