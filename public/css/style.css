@@ -4,25 +4,6 @@
   box-sizing: border-box;
   font-family: "Electrolize", sans-serif; 
 }
-.header {
-  width: 200px;
-  height: 800px;
-}
-
-.logo {
-  height: 150px;
-  width: 200px;
-}
-.nav {
-  height: 100vh;
-  width: 200px;
-  color: black;
-}
-
-.btn {
-  height: 30px;
-  width: 180px;
-}
 
 .container-fluid {
   background-color: rgb(163, 163, 163);
@@ -31,17 +12,43 @@
   height: 100%;
 }
 
-.carousel-item {
-  height: 400px;
-}
 .header {
-  width: 250px;
-  height: 100%;
+  width: 200px;
+  height: 800px;
+  margin: 0px;
+}
+
+.nav {
+  height: 100vh;
+  width: 200px;
+  color: black;
+}
+
+.logo {
+  height: 150px;
+  width: 200px;
+}
+
+.icons {
+  color: black;
+}
+
+.policy {
+  font-size: 10px;
 }
 
 h1 {
   font-size: 100px;
   color: white;
+}
+
+.carousel-item {
+  height: 400px;
+}
+
+.cat a {
+  color: white;
+  text-decoration: none;
 }
 
 .picLink {
@@ -51,9 +58,9 @@ h1 {
   border-radius: 2%;
 }
 
-.cat a {
-  color: white;
-  text-decoration: none;
+.btn {
+  height: 30px;
+  width: 180px;
 }
 
 .loginPic {
@@ -69,14 +76,6 @@ h1 {
   height: 150px;
   width: 150px;
   margin-bottom: 10pt;
-}
-
-.icons {
-  color: black;
-}
-
-.policy {
-  font-size: 10px;
 }
 
 .card {

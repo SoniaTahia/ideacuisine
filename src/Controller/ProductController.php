@@ -25,7 +25,7 @@ class ProductController extends AbstractController
     defaults: ['category' => 0, 'page'=> 1, 'image' => 3],  
     requirements: ["page" => "\d+", "category" => "\d+", "image" => "\d+"], 
     methods: ['GET'])]
-    public function index(?Category $category, ?Image $image, int $page, ProductRepository $productRep, Product $product, ImageRepository $imageRep): Response
+    public function index(?Category $category, ?Image $image, int $page, ProductRepository $productRep, ImageRepository $imageRep): Response
     {   
         $productPerPage = 6;
         $productsCount = $productRep->count([]);
