@@ -38,9 +38,13 @@
           </tr>
 
           <tbody></table>
+          {% if is_granted('ROLE_ADMIN') %}
           <a class="my-3 btn btn-secondary" href="{{ path('invoice_edit', {'id': invoice.id}) }}">Modifier l'adresse de livraison</a>
-
           <a class="my-3" href="{{ path('invoice_index') }}">Retour au menu Facture</a>
+          {% endif %}
+            <a class="my-3" href="{{ path('invoice_user_invoice', {'id': user.id}) }}">Retour à Mes Factures</a>
+          
+          
 
         </div>
       </div>

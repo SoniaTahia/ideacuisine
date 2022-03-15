@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use DateTime;
 
+use App\Entity\User;
 use App\Entity\Invoice;
 use App\Entity\Product;
 use App\Entity\Purchase;
 use App\Form\InvoiceType;
+use App\Repository\UserRepository;
 use App\Repository\InvoiceRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,12 +31,13 @@ class InvoiceController extends AbstractController
     }
 
     #[Route('/{id}/show', name: 'invoice_show', methods: ['GET'])]
-    public function show(Invoice $invoice, Product $product): Response
+    public function show(Invoice $invoice, Product $product, User $user): Response
     {
         $user = $this->getUser();
         return $this->render('invoice/show.html.twig', [
             'invoice' => $invoice,
             'product' => $product,
+            'user' => $user,
         ]);
     }
 
@@ -123,14 +126,14 @@ class InvoiceController extends AbstractController
         return $this->redirectToRoute('invoice_index', [], Response::HTTP_SEE_OTHER);
     }
    
-    #[Route('/{id}/show', name: 'invoice_user_invoice', methods: ['GET'])]
-    public function userInvoice(Invoice $invoice, Product $product, SessionInterface $session): Response
+    #[Route('/{id}/user_invoice', name: 'invoice_user_invoice', methods: ['GET'])]
+    public function userInvoice(InvoiceRepository $invoiceRep, User $user): Response
     {
         $user = $this->getUser();
-        
+
         return $this->render('invoice/user_invoice.html.twig', [
-            'invoice' => $invoice,
-            'product' => $product,
+            'invoices' => $invoiceRep->findAll(),
+            'user' => $user,
         ]);
     }
 }
