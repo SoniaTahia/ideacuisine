@@ -40,9 +40,6 @@ class Product
     #[ORM\JoinColumn(onDelete: "CASCADE")]
     private $images;
 
-    #[ORM\Column(type: 'boolean')]
-    private $listed;
-
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -167,15 +164,4 @@ class Product
         return $this;
     }
 
-    public function getListed(): ?bool
-    {
-        return $this->listed;
-    }
-
-    public function setListed(bool $listed): self
-    {
-        $this->listed = $listed;
-
-        return $this;
-    }
 }
