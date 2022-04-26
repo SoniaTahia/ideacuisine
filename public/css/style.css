@@ -19,8 +19,7 @@
 }
 
 .nav {
-  height: 100vh;
-  width: 200px;
+
   color: black;
 }
 
@@ -40,6 +39,7 @@
 h1 {
   font-size: 100px;
   color: white;
+  cursor: pointer;
 }
 
 .carousel-item {

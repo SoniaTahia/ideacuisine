@@ -44,11 +44,14 @@ class InvoiceController extends AbstractController
     #[Route('/new', name: 'invoice_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, ProductRepository $productRep): Response
     {
-        $invoice = new Invoice();
+       
         $user = $this->getUser();
+
+        $invoice = new Invoice();
+        
         if ($user) {
             $invoice->setName($user->getName())
-                ->setFirstname($user->getFirstname());
+                    ->setFirstname($user->getFirstname());
         }
         $fullCart = [];
         $total = 0;
@@ -80,7 +83,8 @@ class InvoiceController extends AbstractController
                 $purchase->setInvoice($invoice)
                     ->setProduct($product)
                     ->setUnitPrice($product->getPrice())
-                    ->setQuantity($qty);
+                    ->setQuantity($qty)
+                    ->setInvoiceUser($user->getInvoiceUser());
                 $entityManager->persist($purchase);
             }
 

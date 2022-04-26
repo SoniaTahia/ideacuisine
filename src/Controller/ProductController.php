@@ -35,11 +35,9 @@ class ProductController extends AbstractController
             $pageCounter++;
             $pages[] = $pageCounter;
         }
-        
         if ($page > $productsCount / $productPerPage) {
             $page = $pageCounter;
         }
-          // check if $page is consistent
         if ($page < 1) {
             $page = 1;
         }
@@ -52,7 +50,6 @@ class ProductController extends AbstractController
             ];
             $categoryName = $category->getName();
         }
-
         if (!$image) {
         $imageCriteria = [];
         $imagePicture = "";
@@ -62,7 +59,7 @@ class ProductController extends AbstractController
             ];
             $imagePicture = $image->getPicture();
         }
-
+        
         $products = $productRep->findBy(
             $productCriteria,
             [
@@ -78,9 +75,7 @@ class ProductController extends AbstractController
             'lastPage' => $pageCounter,
             'categoryName' => $categoryName,
             'imagePicture' => $imagePicture,
-        ]);
-        
-    
+        ]);   
 }
 
     #[Route('/new', name: 'product_new', methods: ['GET', 'POST'])]

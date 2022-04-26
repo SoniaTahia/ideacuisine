@@ -29,6 +29,7 @@ class ImageController extends AbstractController
     {
         $image = new Image();
         $image->setProduct($product);
+        
         $form = $this->createForm(Image1Type::class, $image);
         $form->handleRequest($request);
 

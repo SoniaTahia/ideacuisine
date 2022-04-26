@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
     #[Route('/', name: 'user_index', methods: ['GET'])]
+    #[IsGranted("ROLE_ADMIN")]
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
@@ -25,6 +26,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'user_new', methods: ['GET', 'POST'])]
+    #[IsGranted("ROLE_ADMIN")]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
@@ -45,6 +47,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/show', name: 'user_show', methods: ['GET'])]
+    #[IsGranted("ROLE_ADMIN")]
     public function show(User $user): Response
     {
         
@@ -54,13 +57,13 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    #[IsGranted("ROLE_ADMIN")]
+    public function edit(Request $request, User $user, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($user);
             $entityManager->flush();
 
             return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
@@ -73,6 +76,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'user_delete', methods: ['POST'])]
+    #[IsGranted("ROLE_ADMIN")]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
@@ -83,11 +87,10 @@ class UserController extends AbstractController
         return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/profile', name: 'user_profile', methods: ['GET'])]
+    #[Route('/{id}/profile', name: 'user_profile', methods: ['GET'])]
     #[IsGranted("ROLE_USER")]
     public function profile(): Response
     {
-        /** @var User $user */
         $user = $this->getUser();
         
         return $this->render('user/profile.html.twig', [
@@ -95,6 +98,7 @@ class UserController extends AbstractController
         ]); 
 
     }
+
      #[Route('/{id}/profile_edit', name: 'profile_edit', methods: ['GET', 'POST'])]
     public function profileEdit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {

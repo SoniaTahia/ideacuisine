@@ -3,13 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Un compte rattaché à cet email existe déjà ')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -46,6 +48,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified;
+
+    #[ORM\OneToMany(mappedBy: 'invoiceUser', targetEntity: Invoice::class)]
+    private $invoiceUser;
+
+    public function __construct()
+    {
+        $this->invoiceUser = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -223,5 +233,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isVerified(): bool
     {
         return $this->isVerified;
+    }
+
+    /**
+     * @return Collection<int, Invoice>
+     */
+    public function getInvoiceUser(): Collection
+    {
+        return $this->invoiceUser;
+    }
+
+    public function addInvoiceUser(Invoice $invoiceUser): self
+    {
+        if (!$this->invoiceUser->contains($invoiceUser)) {
+            $this->invoiceUser[] = $invoiceUser;
+            $invoiceUser->setInvoiceUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoiceUser(Invoice $invoiceUser): self
+    {
+        if ($this->invoiceUser->removeElement($invoiceUser)) {
+            // set the owning side to null (unless already changed)
+            if ($invoiceUser->getInvoiceUser() === $this) {
+                $invoiceUser->setInvoiceUser(null);
+            }
+        }
+
+        return $this;
     }
 }

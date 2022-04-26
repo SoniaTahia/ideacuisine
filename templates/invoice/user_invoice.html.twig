@@ -17,7 +17,7 @@
         </thead>
         <tbody>
           {% for invoice in invoices %}
-            {% if user.name == invoice.name %}
+            {% if app.user.id == invoice.invoiceUser.id %}
               <tr class="table-active">
                 <td>{{ invoice.reference }}</td>
                 <td>{{ invoice.name }}</td>

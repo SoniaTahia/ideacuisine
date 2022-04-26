@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\InvoiceRepository;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\InvoiceRepository;
 
 #[ORM\Entity(repositoryClass: InvoiceRepository::class)]
 class Invoice
@@ -48,6 +49,10 @@ class Invoice
 
     #[ORM\Column(type: 'string', length: 255)]
     private $town;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'invoiceUser')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $invoiceUser;
 
     public function getId(): ?int
     {
@@ -194,6 +199,18 @@ class Invoice
     public function setTown(string $town): self
     {
         $this->town = $town;
+
+        return $this;
+    }
+
+    public function getInvoiceUser(): ?User
+    {
+        return $this->invoiceUser;
+    }
+
+    public function setInvoiceUser(?User $invoiceUser): self
+    {
+        $this->invoiceUser = $invoiceUser;
 
         return $this;
     }

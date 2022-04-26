@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin')]
-#[IsGranted('ROLE_ADMIN')]
+#[IsGranted('ROLE_ADMIN', 'ROLE_USER')]
 class AdminController extends AbstractController
 {
     #[Route('/', name: 'admin')]
