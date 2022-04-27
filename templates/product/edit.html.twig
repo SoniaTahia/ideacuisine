@@ -4,46 +4,46 @@
 
 {% block body %}
 
-  <div class="center mt-0 d-flex flex-column justify-content-between">
-    <div class="row">
-      <h1>Modifier le produit</h1>
+  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
+    <h1>Modifier le produit</h1>
 
-      {{ include('product/_form.html.twig', {'button_label': 'Modifiier'}) }}
+    {{ include('product/_form.html.twig', {'button_label': 'Modifiier'}) }}
 
-      {{ include('product/_delete_form.html.twig') }}
+    {{ include('product/_delete_form.html.twig') }}
 
-      <table class="table">
-        <thead>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Image Id</th>
+          <th>Titre</th>
+          <th>Alt</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for image in images %}
           <tr>
-            <th>Image Id</th>
-            <th>Titre</th>
-            <th>Alt</th>
-            <th>Action</th>
+            <td>{{ image.id }}</td>
+            <td>{{ image.name }}</td>
+            <td>{{ image.alt }}</td>
+            <td>
+              <a href="/upload"></a>
+            </td>
+            <td>
+              <a class="btn btn-light mb-1" href="{{ path('image_show', {'id': image.id}) }}">Voir</a>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {% for image in images %}
-            <tr>
-              <td>{{ image.id }}</td>
-              <td>{{ image.name }}</td>
-              <td>{{ image.alt }}</td>
-              <td><a href="/upload"></a></td>
-              <td>
-                <a class="btn btn-light mb-1" href="{{ path('image_show', {'id': image.id}) }}">Voir</a>
-              </td>
-            </tr>
-          {% else %}
-            <tr>
-              <td colspan="4">Aucune image enregistrée</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+        {% else %}
+          <tr>
+            <td colspan="4">Aucune image enregistrée</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 
-      <a class="btn btn-secondary" href="{{ path('image_new', {'product': product.id}) }}">Ajouter une image</a>
+    <a class="btn btn-secondary" href="{{ path('image_new', {'product': product.id}) }}">Ajouter une image</a>
 
-      <a href="{{ path('product_index') }}">Retour au menu Produit</a>
-    </div>
+    <a href="{{ path('product_index') }}">Retour au menu Produit</a>
   </div>
 
 {% endblock %}

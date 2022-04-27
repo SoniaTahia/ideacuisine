@@ -17,14 +17,19 @@ class CategoryController extends AbstractController
     #[Route('/', name: 'category_index', methods: ['GET'])]
     public function index(CategoryRepository $categoryRepository): Response
     {
+        $user = $this->getUser();
+        
         return $this->render('category/index.html.twig', [
             'categories' => $categoryRepository->findAll(),
+            'user' => $user,
         ]);
     }
 
     #[Route('/new', name: 'category_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
@@ -39,20 +44,26 @@ class CategoryController extends AbstractController
         return $this->renderForm('category/new.html.twig', [
             'category' => $category,
             'form' => $form,
+            'user' => $user,
         ]);
     }
 
     #[Route('/{id}', name: 'category_show', methods: ['GET'])]
     public function show(Category $category): Response
     {
+        $user = $this->getUser();
+        
         return $this->render('category/show.html.twig', [
             'category' => $category,
+            'user' => $user,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'category_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Category $category, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
@@ -65,6 +76,7 @@ class CategoryController extends AbstractController
         return $this->renderForm('category/edit.html.twig', [
             'category' => $category,
             'form' => $form,
+            'user' => $user,
         ]);
     }
 

@@ -19,6 +19,9 @@ class CartController extends AbstractController
         /*return $this->render('cart/index.html.twig', [
             'controller_name' => 'CartController',
         ]);*/
+
+        $user = $this->getUser();
+
         $cart = $session->get('cart', []);
 
         $id = $product->getId();
@@ -56,6 +59,7 @@ class CartController extends AbstractController
         
         return $this->redirectToRoute('cart_show', [
             'id' => $id,
+            'user' => $user,
         ]);
        
     }
@@ -64,6 +68,8 @@ class CartController extends AbstractController
     public function remove(Product $product, SessionInterface $session): Response
     {
     
+        $user = $this->getUser();
+        
         $cart = $session->get('cart', []);
 
         $id = $product->getId();
@@ -73,6 +79,7 @@ class CartController extends AbstractController
         
         return $this->redirectToRoute('cart_show', [
             'id' => $id,
+            'user' => $user,
         ]);
        
     }
@@ -80,6 +87,8 @@ class CartController extends AbstractController
     #[Route('/show', name: 'cart_show')]
     public function show(SessionInterface $session, ProductRepository $productRep): Response
     {
+        $user = $this->getUser();
+        
         $fullCart = [];
         $total = 0;
         $cart = $session->get('cart', []);
@@ -97,6 +106,7 @@ class CartController extends AbstractController
         return $this->render('cart/show.html.twig', [
             'cartProducts' => $fullCart,
             'total' => $total,
+            'user' => $user,
         ]);
 
     }

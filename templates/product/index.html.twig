@@ -3,16 +3,16 @@
 {% block title %}Liste des produits{% endblock %}
 
 {% block body %}
-  <div class="center mt-0 d-flex flex-column justify-content-center">
-    <div class="row bg-white">
-      <h1 class="text-secondary d-flex justify-content-center">Nos produits
+  <div class="center col-10 mt-0 d-flex flex-column justify-content-center bg-light">
+    <div class="row d-flex justify-content-center">
+      <h1 class="text-secondary d-flex justify-content-center my-3">Nos produits
         {% if categoryName != "" %}{{ categoryName }}
         {% endif %}
       </h1>
 
       {% for product in products %}
-        <div class="card bg-secondary text-white mb-4 mx-4 " style="max-width: 24rem;">
-          <div class="card-header bg-secondary">{{ product.category.name }}</div>
+        <div class="card text-white mt-2 mb-4 mx-4 " style="max-width: 22rem;">
+          <div class="card-header">{{ product.category.name }}</div>
           <div class="card-body d-flex flex-column align-items-center">
             <h4>{{ product.name }}</h4>
             {% if product.price %}
@@ -29,12 +29,12 @@
               Pas d'image
             {% endif %}
             <div class="d-flex">
-              <a class="btn btn-light btn-sm mx-2" href="{{ path('product_show', {'id': product.id}) }}">Voir</a>
+              <a class="btn btn-light btn-sm mx-2" style="max-width: 5rem;" href="{{ path('product_show', {'id': product.id}) }}">Voir</a>
               {% if product.stock != 0 %}
                 {% if app.user %}
-                  <a class="btn btn-danger btn-sm" href="{{ path('cart_add', {'product': product.id}) }}">Acheter</a>
+                  <a class="btn btn-danger btn-sm mx-2" style="max-width: 5rem;" href="{{ path('cart_add', {'product': product.id}) }}">Acheter</a>
                 {% else %}
-                  <a class="btn btn-danger btn-sm" href="{{ path('home_contact_info')}}">Acheter</a>
+                  <a class="btn btn-danger btn-sm mx-2" style="max-width: 5rem;" href="{{ path('home_contact_info')}}">Acheter</a>
                 {% endif %}
               {% else %}
                 <tr>

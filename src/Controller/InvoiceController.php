@@ -34,6 +34,7 @@ class InvoiceController extends AbstractController
     public function show(Invoice $invoice, Product $product, User $user): Response
     {
         $user = $this->getUser();
+
         return $this->render('invoice/show.html.twig', [
             'invoice' => $invoice,
             'product' => $product,
@@ -102,8 +103,11 @@ class InvoiceController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'invoice_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
         $form = $this->createForm(InvoiceType::class, $invoice);
         $form->handleRequest($request);
 
@@ -116,6 +120,7 @@ class InvoiceController extends AbstractController
         return $this->renderForm('invoice/edit.html.twig', [
             'invoice' => $invoice,
             'form' => $form,
+            'user' =>$user,
         ]);
     }
 

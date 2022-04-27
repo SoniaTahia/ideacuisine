@@ -3,14 +3,12 @@
 {% block title %}Ajouter un nouvel utilisateur{% endblock %}
 
 {% block body %}
-  <div class="center mt-0 d-flex flex-column justify-content-between">
-    <div class="row">
-      <h1>Ajouter un nouvel utilisateur</h1>
+  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
+    <h1>Ajouter un nouvel utilisateur</h1>
 
-      {{ include('user/_form.html.twig') }}
+    {{ include('user/_form.html.twig') }}
 
-      <a href="{{ path('user_index') }}">Retour au menu Utilisateur</a>
-    </div>
+    <a href="{{ path('user_index') }}">Retour au menu Utilisateur</a>
   </div>
 
 {% endblock %}

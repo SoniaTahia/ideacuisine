@@ -4,48 +4,43 @@
 
 {% block body %}
 
-  <div class="center mt-0 d-flex flex-column justify-content-between">
-    <div class="row">
-      <h1>Facture
-        {{ invoice.name }}</h1>
+  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
+    <h1>Facture
+      {{ invoice.name }}</h1>
 
-      <h2>Mes achats</h2>
-      <table class="table ">
-        <thead>
-          <tr>
-            <th scope="col">Produit</th>
-            <td>{{ product.name }}</td>
-          </tr>
-          <tr>
-            <th scope="col">Prix</th>
-            <td>
-              {{invoice.price }}</td>
-          </tr>
-          <tr>
-            <th scope="col">Nom</th>
-            <td>{{ invoice.name }}</td>
-          </tr>
-          <tr>
-            <th scope="col">Prénom</th>
-            <td>{{ invoice.firstname }}</td>
-          </tr>
-          <tr>
-            <th scope="col">Adresse de livraison</th>
-            <td>{{ invoice.adress }}
-              {{ invoice.postCode }}
-              {{ invoice.town }}
-              {{ invoice.country }}</td>
-          </tr>
+    <h2>Mes achats</h2>
+    <table class="table ">
+      <thead>
+        <tr>
+          <th scope="col">Produit</th>
+          <td>{{ product.name }}</td>
+        </tr>
+        <tr>
+          <th scope="col">Prix</th>
+          <td>
+            {{invoice.price }}</td>
+        </tr>
+        <tr>
+          <th scope="col">Nom</th>
+          <td>{{ invoice.name }}</td>
+        </tr>
+        <tr>
+          <th scope="col">Prénom</th>
+          <td>{{ invoice.firstname }}</td>
+        </tr>
+        <tr>
+          <th scope="col">Adresse de livraison</th>
+          <td>{{ invoice.adress }}
+            {{ invoice.postCode }}
+            {{ invoice.town }}
+            {{ invoice.country }}</td>
+        </tr>
 
-          <tbody></table>
-          {% if is_granted('ROLE_ADMIN') %}
+        <tbody></table>
+        {% if is_granted('ROLE_ADMIN') %}
           <a class="my-3 btn btn-secondary" href="{{ path('invoice_edit', {'id': invoice.id}) }}">Modifier l'adresse de livraison</a>
           <a class="my-3" href="{{ path('invoice_index') }}">Retour au menu Facture</a>
-          {% endif %}
-            <a class="my-3" href="{{ path('invoice_user_invoice', {'id': user.id}) }}">Retour à Mes Factures</a>
-          
-          
-
-        </div>
+        {% endif %}
+        <a class="my-3" href="{{ path('invoice_user_invoice', {'id': user.id}) }}">Retour à Mes Factures</a>
       </div>
     {% endblock %}

@@ -4,35 +4,33 @@
 
 {% block body %}
 
-  <div class="center mt-0 d-flex flex-column justify-content-between">
-    <div class="row">
-      <h1>Liste de mes factures</h1>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Facture n°</th>
-            <th scope="col">Client</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for invoice in invoices %}
-            {% if app.user.id == invoice.invoiceUser.id %}
-              <tr class="table-active">
-                <td>{{ invoice.reference }}</td>
-                <td>{{ invoice.name }}</td>
-                <td>
-                  <a class="btn btn-light mb-1" href="{{ path('invoice_show', {'id': invoice.id}) }}" role="button">Voir</a>
-                </td>
-              </tr>
-            {% endif %}
-          {% else %}
-            <tr>
-              <td colspan="5">Aucune facture enregistré</td>
+  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
+    <h1>Liste de mes factures</h1>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Facture n°</th>
+          <th scope="col">Client</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for invoice in invoices %}
+          {% if app.user.id == invoice.invoiceUser.id %}
+            <tr class="table-active">
+              <td>{{ invoice.reference }}</td>
+              <td>{{ invoice.name }}</td>
+              <td>
+                <a class="btn btn-light mb-1" href="{{ path('invoice_show', {'id': invoice.id}) }}" role="button">Voir</a>
+              </td>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+          {% endif %}
+        {% else %}
+          <tr>
+            <td colspan="5">Aucune facture enregistré</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 {% endblock %}

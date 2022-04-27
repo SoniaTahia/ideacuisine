@@ -3,31 +3,30 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-  <div class="center mt-0 mx-0 d-flex flex-column align-items-center">
-    <div class="row">
-      <form method="post">
-        {% if error %}
-          <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+  <div class="center col-10 mt-0 d-flex flex-column align-items-center">
+    <form method="post" class="w-25">
+      {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+      {% endif %}
 
-        {% if app.user %}
-          <div class="mb-3">
-            Vous êtes connectés en tant que
-            {{ app.user.email }},
-            <a href="{{ path('logout') }}">Se déconnecter</a>
-          </div>
-        {% endif %}
-
-        <div>
-          <h1 class="h3 my-3 font-weight-normal">Veuillez vous connecter</h1>
-          <label for="inputEmail" class="my-2">Votre adresse email :</label>
-          <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control my-2" autocomplete="email" required="required" autofocus="autofocus" placeholder="veuillez entrer votre email">
-          <label for="inputPassword" class="my-2">Votre mot de passe :</label>
-          <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password my-2" required="required" placeholder="veuillez entrer votre mot de passe">
-
-          <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+      {% if app.user %}
+        <div class="mb-3">
+          Vous êtes connectés en tant que
+          {{ app.user.email }},
+          <a href="{{ path('logout') }}">Se déconnecter</a>
         </div>
-        {#
+      {% endif %}
+
+      <div>
+        <h1 class="h3 my-3 font-weight-normal d-flex justify-content-center">Veuillez vous connecter</h1>
+        <label for="inputEmail" class="my-2">Votre adresse email :</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control my-2" autocomplete="email" required="required" autofocus="autofocus" placeholder="veuillez entrer votre email">
+        <label for="inputPassword" class="my-2">Votre mot de passe :</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password my-2" required="required" placeholder="veuillez entrer votre mot de passe">
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+      </div>
+      {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
         See https://symfony.com/doc/current/security/remember_me.html
 
@@ -37,15 +36,15 @@
             </label>
         </div>
     #}
+      <div class="d-flex flex-column align-items-center mt-3">
+      <button class="btn btn-dark mt-3" type="submit">
+        Se connecter
+      </button>
+      <br>
+      <a href="{{ path('app_forgot_password_request') }}" class="cat mb-3">Mot de passe oublié</a>
+      </div>
+    </form>
 
-        <button class="btn btn-dark my-3" type="submit">
-          Se connecter
-        </button>
-        <br>
-        <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
-      </form>
-
-    </div>
     <img src="/upload/IMG-20210527-WA0001.jpg" class="loginPic" alt="cuisinePpale"/></a>
 </div>
 {% endblock %}

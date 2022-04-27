@@ -5,72 +5,73 @@
 {% block body %}
 
   <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <div class="row">
-      <h1 class="slogan my-2 mx-0 fw-lighter fst-italic">
-        "NOS IDEES, VOTRE CUISINE"
-      </h1>
-      <div id="carouselExampleCaptions" class="carousel slide my-3 p-0" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="/upload/shoppic.jpg" class="d-block w-100" alt="..."/>
-            <div class="carousel-caption d-none d-md-block">
-              <h2 class="text-danger">Notre Magasin</h2>
-              <p>Prenez rendez-vous pour nous parler de votre projet</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="/upload/team.jpg" class="d-block w-100" alt="..."/>
-            <div class="carousel-caption d-none d-md-block">
-              <h2 class="text-danger">Notre équipe</h2>
-              <p>Des experts à votre service.</p>
-            </div>
-          </div>
-          <div class="carousel-item bg-transparent">
-            <img src="/upload/Cuisine carousel.jpg" class="d-block w-100" alt="..."/>
-            <div class="carousel-caption d-none d-md-block">
-              <h2 class="text-danger">Votre Cuisine</h2>
-              <p>Et profitez pleinement de votre cuisine.</p>
-            </div>
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+    <h1 class="slogan my-2 mx-0 fw-lighter fst-italic">
+      "NOS IDEES, VOTRE CUISINE"
+    </h1>
+    <div id="carouselExampleCaptions" class="carousel slide my-3 p-0 col-12" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="/upload/shoppic.jpg" class="d-block w-100" alt="..."/>
+          <div class="carousel-caption d-none d-md-block">
+            <h2 class="text-danger">Notre Magasin</h2>
+            <p>Prenez rendez-vous pour nous parler de votre projet</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="/upload/team.jpg" class="d-block w-100" alt="..."/>
+          <div class="carousel-caption d-none d-md-block">
+            <h2 class="text-danger">Notre équipe</h2>
+            <p>Des experts à votre service.</p>
+          </div>
+        </div>
+        <div class="carousel-item bg-transparent">
+          <img src="/upload/Cuisine carousel.jpg" class="d-block w-100" alt="..."/>
+          <div class="carousel-caption d-none d-md-block">
+            <h2 class="text-danger">Votre Cuisine</h2>
+            <p>Et profitez pleinement de votre cuisine.</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
 
-      <div class="cat mb-3 d-flex justify-content-around text-center">
-        <div class="cuisine">
-          <a href="/product/1">
-            <h5 class="home_title">CUISINES</h5>
-            <img src="/upload/IMG-20210527-WA0001.jpg" class="picLink" alt="cuisinePpale"/></a>
-        </div>
-        <div class="dressing">
-          <a href="/product/2">
-            <h5 class="home_title">DRESSINGS</h5>
-            <img src="/upload/Dressing.jpg" class="picLink" alt="Dressing"/></a>
-        </div>
-        <div class="electro">
-          <a href="/product/3">
-            <h5 class="home_title">ELECTROMENAGER</h5>
-            <img src="/upload/F817X621943aaaae6f.jpg" class="picLink" alt="Plaque"/></a>
-        </div>
-        <div class="accessoire">
-          <a href="/product/4">
-            <h5 class="home_title">ACCESSOIRES</h5>
-            <img src="/upload/Evier.jpg" class="picLink" alt="Evier"/></a>
-        </div>
+    <div class="cat mb-3 d-flex justify-content-around text-center">
+      <div class="cuisine">
+        <a href="/product/1">
+          <h5 class="home_title">CUISINES</h5>
+          <img src="/upload/IMG-20210527-WA0001.jpg" class="picLink" alt="cuisinePpale"/></a>
       </div>
-      <div class="policy text-light d-flex justify-content-center"><p>Mentions légales- Conditions Générales de Vente - Politique de Confidentialité</p></div>
+      <div class="dressing">
+        <a href="/product/2">
+          <h5 class="home_title">DRESSINGS</h5>
+          <img src="/upload/Dressing.jpg" class="picLink" alt="Dressing"/></a>
+      </div>
+      <div class="electro">
+        <a href="/product/3">
+          <h5 class="home_title">ELECTROMENAGER</h5>
+          <img src="/upload/F817X621943aaaae6f.jpg" class="picLink" alt="Plaque"/></a>
+      </div>
+      <div class="accessoire">
+        <a href="/product/4">
+          <h5 class="home_title">ACCESSOIRES</h5>
+          <img src="/upload/Evier.jpg" class="picLink" alt="Evier"/></a>
+      </div>
+    </div>
+    <div class="policy text-light d-flex justify-content-center">
+      <p>Mentions légales- Conditions Générales de Vente - Politique de Confidentialité</p>
     </div>
   </div>
+
 {% endblock %}

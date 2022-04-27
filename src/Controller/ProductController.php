@@ -27,6 +27,8 @@ class ProductController extends AbstractController
     methods: ['GET'])]
     public function index(?Category $category, ?Image $image, int $page, ProductRepository $productRep, ImageRepository $imageRep): Response
     {   
+        $user = $this->getUser();
+        
         $productPerPage = 6;
         $productsCount = $productRep->count([]);
         $pages = [];
@@ -75,12 +77,15 @@ class ProductController extends AbstractController
             'lastPage' => $pageCounter,
             'categoryName' => $categoryName,
             'imagePicture' => $imagePicture,
+            'user' => $user,
         ]);   
 }
 
     #[Route('/new', name: 'product_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
@@ -95,12 +100,15 @@ class ProductController extends AbstractController
         return $this->renderForm('product/new.html.twig', [
             'product' => $product,
             'form' => $form,
+            'user' => $user,
         ]);
     }
 
     #[Route('/{id}/show', name: 'product_show', methods: ['GET'])]
     public function show(Product $product, ImageRepository $imageRep): Response
     {
+        $user = $this->getUser();
+        
         $imageCriteria = [
             'product' => $product,
         ];
@@ -109,12 +117,15 @@ class ProductController extends AbstractController
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'images' => $images,
+            'user' => $user,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'product_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Product $product, EntityManagerInterface $entityManager, UploadService $uploadService, ImageRepository $imageRep): Response
     {
+        $user = $this->getUser();
+        
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
@@ -134,7 +145,8 @@ class ProductController extends AbstractController
         return $this->renderForm('product/edit.html.twig', [
             'product' => $product,
             'form' => $form,
-            'images' => $images
+            'images' => $images,
+            'user'=> $user,
         ]);
     }
 

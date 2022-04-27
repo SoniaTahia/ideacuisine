@@ -38,13 +38,15 @@ class HomeController extends AbstractController
     {
         return $this->render('home/contact_info.html.twig', [
             'controller_name' => 'HomeController',
+          
         ]);
     }
 
     #[Route('/contact_user', name: 'home_contact_user')]
     public function contactUser(Request $request, MailerInterface $mailer, UploadService $upLoadService): Response
     {   
-        
+        $user = $this->getUser();
+
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
@@ -81,6 +83,7 @@ class HomeController extends AbstractController
         return $this->renderForm('home/contact_user.html.twig', [
             'contact' => $contact,
             'form' => $form,
+            'user' => $user,
         ]);
     }
 

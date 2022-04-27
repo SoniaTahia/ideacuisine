@@ -3,37 +3,36 @@
 {% block title %}Liste des categories{% endblock %}
 
 {% block body %}
-  <div class="center mt-0 d-flex flex-column justify-content-between col-10">
-    <div class="row">
-      <h1>Liste des categories</h1>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">
-              Catégorie n°</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Actions</th>
+  <div class="center col-10 mt-0 d-flex flex-column justify-content-between col-10">
+    <h1>Liste des categories</h1>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">
+            Catégorie n°</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for category in categories %}
+          <tr class="table-active">
+            <th scope="row">{{ category.id }}</th>
+            <td>{{ category.name }}</td>
+            <td>
+              <a class="btn btn-light mb-1" href="{{ path('category_show', {'id': category.id}) }}" role=" button">Voir</a>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {% for category in categories %}
-            <tr class="table-active">
-              <th scope="row">{{ category.id }}</th>
-              <td>{{ category.name }}</td>
-              <td>
-                <a class="btn btn-light mb-1" href= role="button">Voir</a>
-              </td>
-            </tr>
-          {% else %}
-            <tr>
-              <td colspan="5">Aucune categorie enregistré</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <a class="btn btn-secondary" href="{{ path('category_new') }}">Ajouter une categorie</a>
-      <a class="my-3" href="{{ path('admin') }}">Retour à la page admin</a>
-    </div>
-  </div>"{{ path('category_show', {'id': category.id}) }}"
+        {% else %}
+          <tr>
+            <td colspan="5">Aucune categorie enregistré</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a class="btn btn-secondary" href="{{ path('category_new') }}">Ajouter une categorie</a>
+    <a class="my-3" href="{{ path('admin') }}">Retour à la page admin</a>
+  </div>
+</div>
 
 {% endblock %}

@@ -4,14 +4,13 @@
 
 {% block body %}
 
-  <div class="center mt-0 d-flex flex-column justify-content-between">
-    <div class="row">
-      <h1>Ajouter un nouveau produit</h1>
+  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
+    <h1>Ajouter un nouveau produit</h1>
 
-      {{ include('product/_form.html.twig') }}
+    {{ include('product/_form.html.twig') }}
 
-      <a href="{{ path('product_index') }}">back to list</a>
-    </div>
+    <a href="{{ path('product_index') }}">back to list</a>
+
   </div>
 
 {% endblock %}

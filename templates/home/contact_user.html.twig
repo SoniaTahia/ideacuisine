@@ -4,17 +4,15 @@
 
 {% block body %}
 
-  <div class="center mt-0 d-flex flex-column justify-content-between">
-    <div class="row">
+  <div class="center col-10 ms-5 mt-0 d-flex flex-column justify-content-between">
 
-      <h1>Page de contact</h1>
+    <h1>Page de contact</h1>
 
-      {{ form_start(form)}}
-      {{ form_widget(form) }}
-      <button class="btn btn-dark mt-3">Envoyer</button>
-      {{ form_end(form) }}
+    {{ form_start(form)}}
+    {{ form_widget(form) }}
+    <button class="btn btn-dark mt-3">Envoyer</button>
+    {{ form_end(form) }}
 
-    </div>
   </div>
 
 {% endblock %}
