@@ -9,7 +9,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Facture n°</th>
+          <th scope="col">Date</th>
           <th scope="col">Client</th>
           <th scope="col">Actions</th>
         </tr>
@@ -18,7 +18,7 @@
         {% for invoice in invoices %}
           {% if app.user.id == invoice.invoiceUser.id %}
             <tr class="table-active">
-              <td>{{ invoice.reference }}</td>
+              <td>{{ invoice.createdAt|date("d/m/Y") }}</td>
               <td>{{ invoice.name }}</td>
               <td>
                 <a class="btn btn-light mb-1" href="{{ path('invoice_show', {'id': invoice.id}) }}" role="button">Voir</a>

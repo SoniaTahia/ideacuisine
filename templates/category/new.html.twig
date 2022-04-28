@@ -4,12 +4,12 @@
 
 {% block body %}
 
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <h1>Ajouter une nouvelle catégorie</h1>
-
-    {{ include('category/_form.html.twig') }}
-
-    <a class="mt-3" href="{{ path('category_index') }}">Retour au menu</a>
+  <div class="center col-10 mt-0 d-flex flex-column align-items-center">
+    <h1 class="slogan mt-2 mb-5 mx-0 d-flex justify-content-center fw-lighter fst-italic w-100">Ajouter une nouvelle catégorie</h1>
+    <div class="w-25">
+      {{ include('category/_form.html.twig') }}
+    </div>
+    <a class="text-dark" href="{{ path('category_index') }}">Retour au menu Catégorie</a>
   </div>
 
 {% endblock %}

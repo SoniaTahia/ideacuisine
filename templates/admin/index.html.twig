@@ -4,44 +4,46 @@
 
 {% block body %}
 
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <h1 class="my-3">Bienvenu sur votre page Admin</h1>
-    <div class="card text-white bg-secondary mb-3 mx-3" style="max-width: 18rem;">
-      <div class="card-body">
-        <h4 class="card-title">Catégorie</h4>
-        <p class="card-text">Vous pouvez voir, modifier ou ajouter une catégorie de produits</p>
-        <div class="card-header">
-          <a class="btn btn-light mb-3" href="{{ path('category_index') }}" role="button">Voir</a>
+  <div class="center col-10 mt-0 d-flex flex-column">
+
+    <h1 class="slogan mt-2 mb-5 mx-0 d-flex justify-content-center fw-lighter fst-italic">Bienvenu sur votre page Admin</h1>
+    <div class="d-flex mt-3 h-50 w-100">
+      <div class="card text-dark bg-light mb-3 mx-3 h-75 w-50">
+        <div class="card-body d-flex flex-column justify-content-end">
+          <h3 class="card-title p-2 text-danger">Catégorie</h3>
+          <p class="card-text">Vous pouvez voir, modifier ou ajouter une catégorie de produits</p>
+           <div class="card-header bg-dark p-2 mt-auto d-flex justify-content-center align-items-center h-25">
+            <a class="btn btn-light mb-3 d-flex justify-content-center align-items-center" href="{{ path('category_index') }}" role="button">Voir</a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card bg-light mb-3 mx-3" style="max-width: 18rem;">
-      <div class="card-body">
-        <h4 class="card-title">Produits</h4>
-        <p class="card-text">Vous pouvez voir, modifier ou ajouter un ou plusieurs produits.</p>
-        <div class="card-header">
-          <a class="btn btn-light mb-1" href="{{ path('product_index') }}" role="button">Voir</a>
+      <div class="card text-dark bg-light mb-3 mx-3 h-75 w-50">
+        <div class="card-body d-flex flex-column justify-content-end">
+          <h3 class="card-title p-2 text-danger">Produits</h3>
+          <p class="card-text">Vous pouvez voir, modifier ou ajouter un ou plusieurs produits.</p>
+           <div class="card-header bg-dark p-2 mt-auto d-flex justify-content-center align-items-center h-25">
+            <a class="btn btn-light mb-1 d-flex justify-content-center align-items-center" href="{{ path('product_index') }}" role="button">Voir</a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card text-white bg-secondary mb-3 mx-3 " style="max-width: 18rem;">
-      <div class="card-body">
-        <h4 class="card-title">Utilisateurs</h4>
-        <p class="card-text">Vous pouvez voir, modifierou ajouter un ou plusieurs utilisateurs.</p>
-        <div class="card-header">
-          <a class="btn btn-light mb-1" href="{{ path('user_index') }}" role="button">Voir</a>
+      <div class="card text-dark bg-light mb-3 mx-3 h-75 w-50">
+        <div class="card-body d-flex flex-column justify-content-end">
+          <h3 class="card-title p-2 text-danger">Utilisateurs</h3>
+          <p class="card-text">Vous pouvez voir, modifier ou ajouter un ou plusieurs utilisateurs.</p>
+          <div class="card-header bg-dark p-2 mt-auto d-flex justify-content-center align-items-center h-25">
+            <a class="btn btn-light mb-1 d-flex justify-content-center align-items-center" href="{{ path('user_index') }}" role="button">Voir</a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card bg-light mb-3 mx-3" style="max-width: 18rem;">
-      <div class="card-body">
-        <h4 class="card-title">Factures</h4>
-        <p class="card-text">Vous pouvez voir, modifier ou ajouter des factures.</p>
-        <div class="card-header">
-          <a class="btn btn-light mb-1" href="{{ path('invoice_index') }}" role="button">Voir</a>
+      <div class="card text-dark bg-light mb-3 mx-3 h-75 w-50">
+        <div class="card-body d-flex flex-column justify-content-end">
+          <h3 class="card-title p-2 text-danger">Factures</h3>
+          <p class="card-text">Vous pouvez voir, modifier ou ajouter des factures.</p>
+          <div class="card-header bg-dark p-2 mt-auto d-flex justify-content-center align-items-center h-25">
+            <a class="btn btn-light mb-1 d-flex justify-content-center align-items-center" href="{{ path('invoice_index') }}" role="button">Voir</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
 {% endblock %}

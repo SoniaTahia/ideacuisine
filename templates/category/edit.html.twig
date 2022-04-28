@@ -3,14 +3,14 @@
 {% block title %}Modifier la catégorie{% endblock %}
 
 {% block body %}
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <h1>Modifier la catégorie</h1>
+  <div class="center col-10 mt-0 d-flex flex-column align-items-center">
+    <h1 class="slogan mt-2 mb-5 mx-0 d-flex justify-content-center fw-lighter fst-italic w-100">Modifier la catégorie</h1>
+    <div class="w-25">
+      {{ include('category/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    {{ include('category/_form.html.twig', {'button_label': 'Modifier'}) }}
-
-    {{ include('category/_delete_form.html.twig') }}
-
-    <a href="{{ path('category_index') }}">Retour au menu Catégorie</a>
+      {{ include('category/_delete_form.html.twig') }}
+    </div>
+    <a href="{{ path('category_index') }}" class="text-dark">Retour au menu Catégorie</a>
   </div>
 
 {% endblock %}

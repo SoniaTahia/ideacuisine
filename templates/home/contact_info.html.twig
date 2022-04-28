@@ -4,39 +4,20 @@
 
 {% block body %}
 
-  <div class="center col-10 ms-5 mt-0 d-flex flex-column justify-content-between">
-    <div class="row cat">
+  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
+    <div class="row cat d-flex justify-content-center">
 
-      <h1>Page de contact</h1>
+      <h1 class="slogan mt-2 mb-5 mx-0 d-flex justify-content-center fw-lighter fst-italic">Information</h1>
 
-      <p>Pour nous contacter ou passer une commande, veuillez vous connecter à votre compte en cliquant sur ce lien:
+      <p class="my-3 d-flex justify-content-center">Pour nous contacter ou commander un article, nous vous invitons à vous connecter à votre compte en cliquant sur ce lien:
       </p>
-      <a href="{{ path('login') }}">Connexion</a >
+      <a class="btn btn-danger w-25" href="{{ path('login') }}">Connexion</a >
 
-      <p>Sinon, nous vous invitons à créer un compte en cliquant sur ce lien:
+      <p class="my-3 d-flex justify-content-center">Si vous n'avez pas encore de compte, nous vous invitons à le créer en cliquant sur ce lien:
       </p>
-      <a href="{{ path('app_register')}}">Inscription</a>
+      <a class="btn btn-danger w-25" href="{{ path('app_register')}}">Inscription</a>
 
     </div>
   </div>
-
-  {# <form method="POST">
-
-    <fieldset>
-      <div class="form-group">
-        <label for="email" class="form-label mt-4">Votre adresse email</label>
-        <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Veuillez entrer votre adresse email">
-      </div>
-      <div class="form-group">
-        <label class="col-form-label mt-4" for="subject">Sujet de votre message</label>
-        <input type="text" class="form-control" placeholder="Veuillez écrire le sujet de votre message" name="subject">
-      </div>
-      <div class="form-group">
-        <label for="message" class="form-label mt-4">Votre message</label>
-        <textarea class="form-control" name="message" rows="4" placeholder="Veuillez écrire votre message"></textarea>
-      </div>
-      <div class="form-group"></form>
-      <button type="submit" class="btn btn-dark mt-3">Envoyer</button>
-    </fi</fieldset> #}
 
 {% endblock %}
