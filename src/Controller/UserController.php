@@ -20,8 +20,11 @@ class UserController extends AbstractController
     #[IsGranted("ROLE_ADMIN")]
     public function index(UserRepository $userRepository): Response
     {
+        $user = $this->getUser();
+
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
+            'user' => $user,
         ]);
     }
 
@@ -29,6 +32,8 @@ class UserController extends AbstractController
     #[IsGranted("ROLE_ADMIN")]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -60,6 +65,8 @@ class UserController extends AbstractController
     #[IsGranted("ROLE_ADMIN")]
     public function edit(Request $request, User $user, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 

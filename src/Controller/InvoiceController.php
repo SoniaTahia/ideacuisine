@@ -19,14 +19,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 class InvoiceController extends AbstractController
 {
     #[Route('/invoice', name: 'invoice_index')]
     public function index(InvoiceRepository $invoiceRep): Response
     {
+        $user = $this->getUser();
 
         return $this->render('invoice/index.html.twig', [
             'invoices' => $invoiceRep->findAll(),
+            'user' => $user,
         ]);
     }
 
@@ -43,7 +46,7 @@ class InvoiceController extends AbstractController
     }
 
     #[Route('/new', name: 'invoice_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, ProductRepository $productRep): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, UserRepository $userRep, ProductRepository $productRep): Response
     {
        
         $user = $this->getUser();
@@ -72,11 +75,10 @@ class InvoiceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $invoice->setPrice($total)
+            $invoice->setInvoiceUser($this->getUser())
+                    ->setPrice($total)
                     ->setPaid(false)
-                    ->setStripeSuccessKey(uniqid())
-                    ->setReference("")
-                    ->setDate(new DateTime("now"));
+                    ->setStripeSuccessKey(uniqid());
             $entityManager->persist($invoice);
             foreach ($cart as $id => $qty) {
                 $product = $productRep->find($id);
@@ -84,8 +86,7 @@ class InvoiceController extends AbstractController
                 $purchase->setInvoice($invoice)
                     ->setProduct($product)
                     ->setUnitPrice($product->getPrice())
-                    ->setQuantity($qty)
-                    ->setInvoiceUser($user->getInvoiceUser());
+                    ->setQuantity($qty);
                 $entityManager->persist($purchase);
             }
 
@@ -99,6 +100,7 @@ class InvoiceController extends AbstractController
             'form' => $form,
             'cartProducts' => $fullCart,
             'total' => $total,
+            'user' => $user,
         ]);
     }
 

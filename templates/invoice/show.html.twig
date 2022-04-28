@@ -12,6 +12,14 @@
     <table class="table ">
       <thead>
         <tr>
+          <th scope="col">Date</th>
+          <td>{{ invoice.createdAt|date("d/m/Y")}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Produit</th>
+          <td>{{ product.name }}</td>
+        </tr>
+        <tr>
           <th scope="col">Produit</th>
           <td>{{ product.name }}</td>
         </tr>
@@ -35,7 +43,6 @@
             {{ invoice.town }}
             {{ invoice.country }}</td>
         </tr>
-
         <tbody></table>
         {% if is_granted('ROLE_ADMIN') %}
           <a class="my-3 btn btn-secondary" href="{{ path('invoice_edit', {'id': invoice.id}) }}">Modifier l'adresse de livraison</a>

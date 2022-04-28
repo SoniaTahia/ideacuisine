@@ -20,7 +20,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => "votre adresse de courriel : ",
+                'label' => "Votre adresse email : ",
                 'required' => true,
                 'attr' => [
                     'placeholder' => "entrez votre adresse de courriel",
@@ -38,7 +38,7 @@ class RegistrationFormType extends AbstractType
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
-                'label' => 'votre mot de passe :',
+                'label' => 'Votre mot de passe :',
                 'mapped' => false,
                 'attr' => [
                     'autocomplete' => 'new-password',
@@ -57,21 +57,21 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('firstname', TextType::class, [
-                'label' => "votre prénom : ",
+                'label' => "Votre prénom : ",
                 'required' => true,
                 'attr' => [
                     'placeholder' => "entrez votre prénom ici",
                 ],
             ])
             ->add('name', TextType::class, [
-                'label' => "votre nom : ",
+                'label' => "Votre nom : ",
                 'required' => true,
                 'attr' => [
                     'placeholder' => "entrez votre nom ici",
                 ],
             ])
             ->add('phone', TextType::class, [
-                'label' => "votre numéro de téléphone : ",
+                'label' => "Votre numéro de téléphone : ",
                 'required' => true,
                 'attr' => [
                     'placeholder' => "entrez votre numéro ici",
@@ -89,21 +89,21 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('adress', TextType::class, [
-                'label' => "votre adresse : ",
+                'label' => "Votre adresse : ",
                 'required' => true,
                 'attr' => [
                     'placeholder' => "entrez votre numéro et rue ici",
                 ],
             ])
             ->add('postCode', TextType::class, [
-                'label' => "votre code postal : ",
+                'label' => "Votre code postal : ",
                 'required' => true,
                 'attr' => [
                     'placeholder' => "entrez votre code postal ici",
                 ],
             ])
             ->add('town', TextType::class, [
-                'label' => "votre ville : ",
+                'label' => "Votre ville : ",
                 'required' => true,
                 'attr' => [
                     'placeholder' => "entrez votre ville ici",

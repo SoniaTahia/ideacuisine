@@ -9,7 +9,6 @@
   background-color: rgb(163, 163, 163);
   margin: 0;
   padding: 0;
-  height: 100%;
 }
 
 .header {
@@ -79,7 +78,7 @@ h1 {
 .card {
   margin: 0;
   padding: 0;
-  background-color: rgb(163, 163, 163);
+  background-color: rgb(163, 163, 163) !important;
 }
 
 .card-header {

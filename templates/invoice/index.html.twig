@@ -10,7 +10,7 @@
         <tr>
           <th scope="col">
             Id facture</th>
-          <th scope="col">Facture n°</th>
+          <th scope="col">Date</th>
           <th scope="col">Client</th>
           <th scope="col">Actions</th>
         </tr>
@@ -19,7 +19,7 @@
         {% for invoice in invoices %}
           <tr class="table-active">
             <th scope="row">{{ invoice.id }}</th>
-            <td>{{ invoice.reference }}</td>
+            <td>{{ invoice.createdAt|date("d/m/Y") }}</td>
             <td>{{ invoice.name }}</td>
             <td>
               <a class="btn btn-light mb-1" href="{{ path('invoice_show', {'id': invoice.id}) }}" role="button">Voir</a>

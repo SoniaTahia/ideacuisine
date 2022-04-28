@@ -20,6 +20,7 @@ class StripeController extends AbstractController
     public function checkout(Invoice $invoice, PurchaseRepository $purchaseRepo, Request $request, EntityManagerInterface $em): Response
     {
         
+
         $privateKey = "sk_test_51KaPpcBlfeiezpcIPppfNuuFW0T7bA1fmd4qOmsf4ybbLpTtnT0TnmKbCueodxWZRkqENvlct8LWsltbNTUw9Ov500gFi92ws4";
         Stripe::setApiKey($privateKey);
 
@@ -56,6 +57,7 @@ class StripeController extends AbstractController
             'payment_method_types' => ['card'],
             'success_url' => $successRoute,
             'cancel_url' => $errorRoute,
+            //'user' => $user,
         ]);
         $invoice->setPiStripe($stripeSession->payment_intent);
         $em->flush($invoice);
@@ -66,6 +68,8 @@ class StripeController extends AbstractController
     #[Route('/stripe/{invoice}/success/{stripeSuccessKey}', name: 'stripe_valid_payment')]
     public function success(Invoice $invoice, string $stripeSuccessKey, SessionInterface $session, PurchaseRepository $purchaseRepo): Response
     {
+        $user = $this->getUser();
+        
         if ($stripeSuccessKey != $invoice->getStripeSuccessKey()) {
             $this->redirectToRoute("stripe_error_payment", [
                 'invoice' => $invoice->getId(),
@@ -80,6 +84,7 @@ class StripeController extends AbstractController
         return $this->render('stripe/success.html.twig', [
             'invoice' => $invoice,
             'purchases' => $purchases,
+            'user' => $user,
         ]);
     }
     

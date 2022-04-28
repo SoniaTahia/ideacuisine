@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\User;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\InvoiceRepository;
 
@@ -13,12 +14,6 @@ class Invoice
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
-
-    #[ORM\Column(type: 'string', length: 45)]
-    private $reference;
-
-    #[ORM\Column(type: 'date')]
-    private $date;
 
     #[ORM\Column(type: 'integer')]
     private $price;
@@ -51,36 +46,19 @@ class Invoice
     private $town;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'invoiceUser')]
-    #[ORM\JoinColumn(nullable: false)]
     private $invoiceUser;
+
+    #[ORM\Column(type: 'datetime')]
+    private $created_at;
+
+    public function __construct() 
+    {
+        $this->created_at = new \DateTime();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getReference(): ?string
-    {
-        return $this->reference;
-    }
-
-    public function setReference(string $reference): self
-    {
-        $this->reference = $reference;
-
-        return $this;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
     }
 
     public function getPrice(): ?int
@@ -211,6 +189,18 @@ class Invoice
     public function setInvoiceUser(?User $invoiceUser): self
     {
         $this->invoiceUser = $invoiceUser;
+
+        return $this;
+    }
+
+     public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }
