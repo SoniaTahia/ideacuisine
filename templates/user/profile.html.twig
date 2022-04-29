@@ -3,10 +3,10 @@
 {% block title %}Utilisateur{% endblock %}
 
 {% block body %}
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <h1>{{ user.name }}
-      {{ user.firstname }}</h1>
-    <table class="table">
+  <div class="center col-10 m-0 d-flex flex-column justify-content-centerbetween align-items-center">
+    <h1 class="text-light d-flex justify-content-center mt-2 mb-5">{{ user.firstname }} {{ user.name }}
+      </h1>
+    <table class="table table-hover table-light table-bordered table-light border border-3 w-75 mx-3 my-3">
       <tbody>
         <tr>
           <th>Email</th>
@@ -39,10 +39,13 @@
       </tbody>
     </table>
 
-    <a class="btn btn-secondary" href="{{ path('invoice_user_invoice', {'id': user.id}) }}">Mes achats</a>
+    <div class="d-flex justify-content-between mt-5 w-75">
+      <a class="btn btn-light my-2" href="{{ path('invoice_user_invoice', {'id': user.id}) }}">Mes achats</a>
+      <div>
+        <a class="btn btn-secondary" href="{{ path('profile_edit', {'id': user.id}) }}">Modifier</a>
+        {{ include('user/_delete_form.html.twig') }}
+      </div>
+    </div>
 
-    <a class="btn btn-secondary" href="{{ path('profile_edit', {'id': user.id}) }}">Modifier</a>
-
-    {{ include('user/_delete_form.html.twig') }}
   </div>
 {% endblock %}

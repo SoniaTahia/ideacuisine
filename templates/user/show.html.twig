@@ -3,10 +3,10 @@
 {% block title %}Utilisateur{% endblock %}
 
 {% block body %}
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <h1>{{ user.name }}
-      {{ user.firstname }}</h1>
-    <table class="table">
+  <div class="center col-10 m-0 d-flex flex-column align-items-center">
+    <h1 class="text-light d-flex justify-content-center mt-2 mb-5">{{ user.firstname }}
+      {{ user.name }}</h1>
+    <table class="table table-hover table-light table-bordered table-light border border-3 w-75 mx-3 mt-3">
       <tbody>
         <tr>
           <th>Email</th>
@@ -43,6 +43,6 @@
 
     {{ include('user/_delete_form.html.twig') }}
 
-    <a href="{{ path('user_index') }}">Retour au menu Utilisateur</a>
+    <a class="text-dark mt-2" href="{{ path('user_index') }}">Retour au menu Utilisateur</a>
   </div>
 {% endblock %}

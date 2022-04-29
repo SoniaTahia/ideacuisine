@@ -6,9 +6,11 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class ProfileType extends AbstractType
 {
@@ -20,6 +22,25 @@ class ProfileType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => "entrez votre adresse de courriel",
+                ],
+            ])
+            ->add('plainPassword', PasswordType::class, [
+                'label' => 'votre mot de passe :',
+                'mapped' => false,
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                    'placeholder' => 'entrez votre mot de passe ici',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer un mot de passe',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} characteres',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
                 ],
             ])
             ->add('firstname', TextType::class, [

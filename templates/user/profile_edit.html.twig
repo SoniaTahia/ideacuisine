@@ -3,13 +3,33 @@
 {% block title %}Modifier vos informations{% endblock %}
 
 {% block body %}
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <h1>Modifier vos informations</h1>
+  <div class="center col-10 m-0 d-flex flex-column align-items-center">
+    <h1 class="text-light d-flex justify-content-center mt-2 mb-5">Modifier votre profil</h1>
 
-    {{ include('profile/_form.html.twig', {'button_label': 'Modifier'}) }}
+    {{ form_start(form) }}
 
-    {{ include('user/_delete_form.html.twig') }}
+    <div class="d-flex w-100">
+      <div class="w-50">{{ form_row(form.name) }}</div>
+      <div class="w-50 ms-5">{{ form_row(form.firstname) }}</div>
+    </div>
+    <div class="w-100 me-3">{{ form_row(form.adress) }}</div>
+    <div class="d-flex w-100">
+      <div class="w-50">{{ form_row(form.postCode) }}</div>
+      <div class="w-50 ms-5">{{ form_row(form.town) }}</div>
+      <div class="w-50 ms-5">{{ form_row(form.phone) }}</div>
+    </div>
+    <div class="d-flex w-100">
+      <div class="w-50">{{ form_row(form.email) }}</div>
+      <div class="w-50 ms-5">{{ form_row(form.plainPassword) }}</div>
+    </div>
 
-    <a href="{{ path('user_profile') }}">Retour à mon profile</a>
+    <div class="d-flex justify-content-evenly w-100">
+      <button type="submit" class="btn btn-dark my-5 mx-3 w-25">Modifier</button>
+      <div class="w-25">{{ include('user/_delete_form.html.twig') }}</div>
+    </div>
+
+    {{ form_end(form) }}
+
+    <a href="{{ path('user_profile', {'id': user.id}) }}">Retour à mon profile</a>
   </div>
 {% endblock %}

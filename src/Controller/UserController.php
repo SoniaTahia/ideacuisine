@@ -66,7 +66,7 @@ class UserController extends AbstractController
     #[IsGranted("ROLE_ADMIN")]
     public function edit(Request $request, User $user, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
-        $user = $this->getUser();
+       // $user = $this->getUser();
         
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
