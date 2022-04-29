@@ -5,42 +5,45 @@
 
 {% block body %}
 
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <h1>{{ product.name }}</h1>
-    <table class="table">
-      <tbody>
-        <tr>
-          <th>Produit Id</th>
-          <td>{{ product.id }}</td>
-        </tr>
-        <tr>
-          <th>Nom</th>
-          <td>{{ product.name }}</td>
-        </tr>
-        <tr>
-          <th>Référence</th>
-          <td>{{ product.reference }}</td>
-        </tr>
-        <tr>
+  <div class="center col-10 m-0 d-flex flex-column bg-light">
+    <h1 class="text-secondary d-flex justify-content-center my-2">{{ product.name }}</h1>
+
+    <div class="d-flex justify-content-around w-100 mt-2">
+
+      <div class="d-flex justify-content-center align-items-center bg-light mx-3 w-25 border-dark border border-1">
+        {% if images != [] %}
+          {% for image in images %}
+            <img src="/upload/{{ images.0.picture }}" alt="{{ images.0.alt }}" class="productPic">
+          {% endfor %}
+        {% else %}
+          <p>Pas d'image disponible</p>
+        {% endif %}
+      </div>
+
+      {% if is_granted('ROLE_ADMIN') %}
+        <div class="d-flex flex-column justify-content-center">
+          <a class="my-3 btn btn-secondary" href="{{ path('product_edit', {'id': product.id}) }}">Modifier</a>
+          {{ include('product/_delete_form.html.twig') }}
+        </div>
+      {% endif %}
+
+      <table class="table table-hover table-light table-bordered table-dark border border-1 w-25 mx-3">
+        <tbody>
           <tr>
-            <th>Slug</th>
-            <td>{{ product.slug }}</td>
+            <th>Nom</th>
+            <td>{{ product.name }}</td>
+          </tr>
+          <tr>
+            <th>Catégorie</th>
+            <td>{{ product.category.name }}</td>
+          </tr>
+          <tr>
+            <th>Référence</th>
+            <td>{{ product.reference }}</td>
           </tr>
           <tr>
             <th>Description</th>
             <td>{{ product.description }}</td>
-          </tr>
-          <tr>
-            <th>Photo</th>
-            <td>
-              {% if images != [] %}
-                {% for image in images %}
-                  <img src="/upload/{{ images.0.picture }}" alt="{{ images.0.alt }}" class="productPic">
-                {% endfor %}
-              {% else %}
-                Pas d'image
-              {% endif %}
-            </td>
           </tr>
           <tr>
             <th>Prix</th>
@@ -54,27 +57,23 @@
             <th>Disponibilité</th>
             <td>{{ product.stock }}</td>
           </tr>
-          <tr>
-            <th>Catégorie</th>
-            <td>{{ product.category.name }}</td>
-          </tr>
         </tbody>
       </table>
-      {% if is_granted('ROLE_ADMIN') %}
-        <a class="my-3 btn btn-secondary" href="{{ path('product_edit', {'id': product.id}) }}">Modifier</a>
-        {{ include('product/_delete_form.html.twig') }}
-      {% endif %}
+
+    </div>
+
+    <div class="d-flex flex-column justify-content-center align-items-center w-100 h-25">
+
       {% if product.stock != 0 %}
         {% if app.user %}
-          <a class="btn btn-danger btn-sm mt-3" href="{{ path('cart_add', {'product': product.id}) }}">Acheter</a>
+          <a class="btn btn-danger btn-sm mt-3 w-25" href="{{ path('cart_add', {'product': product.id}) }}">Acheter</a>
         {% else %}
-          <a class="btn btn-danger btn-sm mt-3" href="{{ path('home_contact_info')}}">Acheter</a>
+          <a class="btn btn-danger btn-sm mt-3 w-25" href="{{ path('home_contact_info')}}">Acheter</a>
         {% endif %}
       {% else %}
-        <tr>
-          <td colspan="5">Produit en rupture de stock</td>
-        </tr>
+        <p>Produit en rupture de stock</p>
       {% endif %}
       <a class="my-3" href="{{ path('product_index') }}">Retour au menu Produit</a>
     </div>
-  {% endblock %}
+  </div>
+{% endblock %}

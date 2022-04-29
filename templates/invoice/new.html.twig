@@ -19,7 +19,7 @@
         {% for row in cartProducts %}
           <tr class="table-active">
             <td>{{ row.product.name }}</td>
-            <td>{{ row.product.price }}</td>
+            <td>{{ row.product.price|price }}</td>
             <td>{{ row.qty }}</td>
           </tr>
         {% else %}

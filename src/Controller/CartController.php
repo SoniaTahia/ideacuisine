@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Product;
+use App\Repository\UserRepository;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CartController extends AbstractController
 {
     #[Route('/{product}/add', name: 'cart_add')]
-    public function add(Product $product, SessionInterface $session): Response
+    public function add(Product $product, UserRepository $userRep, SessionInterface $session): Response
     {
         /*return $this->render('cart/index.html.twig', [
             'controller_name' => 'CartController',
@@ -38,14 +40,16 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute('cart_show', [
             'id' => $id,
+            'user' => $user,
         ]);
        
     }
 
      #[Route('/{product}/less', name: 'cart_less')]
-    public function less(Product $product, SessionInterface $session): Response
+    public function less(Product $product, UserRepository $userRep, SessionInterface $session): Response
     {
-    
+        $user = $this->getUser();
+
         $cart = $session->get('cart', []);
 
         $id = $product->getId();
@@ -65,7 +69,7 @@ class CartController extends AbstractController
     }
 
      #[Route('/{product}/remove', name: 'cart_remove')]
-    public function remove(Product $product, SessionInterface $session): Response
+    public function remove(Product $product, UserRepository $userRep, SessionInterface $session): Response
     {
     
         $user = $this->getUser();
@@ -85,7 +89,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/show', name: 'cart_show')]
-    public function show(SessionInterface $session, ProductRepository $productRep): Response
+    public function show(SessionInterface $session, UserRepository $userRep, ProductRepository $productRep): Response
     {
         $user = $this->getUser();
         

@@ -22,9 +22,6 @@ class Product
     private $reference;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $slug;
-
-    #[ORM\Column(type: 'string', length: 255)]
     private $description;
 
     #[ORM\Column(type: 'integer', nullable: true)]
@@ -70,18 +67,6 @@ class Product
     public function setReference(string $reference): self
     {
         $this->reference = $reference;
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
 
         return $this;
     }

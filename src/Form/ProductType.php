@@ -46,27 +46,12 @@ class ProductType extends AbstractType
                     "placeholder" => "entrer la référence du produit"
                 ]
             ])
-            ->add('slug', TextType::class, [
-                'label' => "Slug :",
-                'required' => true,
-                'attr' => [
-                    "placeholder" => "entrer le slug",
-                ],
-                'constraints' =>[
-                    new Length([
-                        'min' => 5,
-                        'max' => 254,
-                        'minMessage' => "le nom du produit doit contenir au minimum {{ limit }} caractères",
-                        'maxMessage' => "le nom du produit doit contenir au maximum {{ limit }} caractères"
-                        ])
-                ],
-            ] )
             ->add('description', TextareaType::class, [
                 'label' => "Description du produit :",
                 'required' => true,
                 'attr' => [
                     "placeholder" => "entrer la description du produit",
-                    "row" => 4,
+                    "row" => 6,
                 ],
                 'constraints' =>[
                     new NotBlank([

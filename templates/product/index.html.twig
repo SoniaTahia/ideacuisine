@@ -3,24 +3,26 @@
 {% block title %}Liste des produits{% endblock %}
 
 {% block body %}
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-center bg-light">
-    <div class="row d-flex justify-content-center">
-      <h1 class="text-secondary d-flex justify-content-center my-3">Nos produits
+  <div class="center col-10 mt-0 d-flex flex-column align-items-center bg-light">
+    <div class="row d-flex justify-content-evenly m-0">
+      {#<h1 class="text-dark d-flex justify-content-center my-2">Nos produits
         {% if categoryName != "" %}{{ categoryName }}
         {% endif %}
-      </h1>
+      </h1>#}
 
       {% for product in products %}
-        <div class="card text-white mt-2 mb-4 mx-4 " style="max-width: 22rem;">
-          <div class="card-header">{{ product.category.name }}</div>
-          <div class="card-body d-flex flex-column align-items-center">
-            <h4>{{ product.name }}</h4>
+        <div class="product-card bg-dark text-dark bg-opacity-10 mt-1 mb-1 mx-4 rounded-3" style="max-width: 20rem;">
+          <div class="product-card">
+            <h4>{{ product.category.name }}</h4>
+          </div>
+          <div class="card-body d-flex flex-column align-items-center p-2">
+            <h6>{{ product.name }}</h6>
             {% if product.price %}
-              <h5 class="card-title">Prix :
-                {{ product.price }}
-                TND</h5>
+              <h6 class="card-title">Prix :
+                {{ product.price|price }}
+                TND</h6>
             {% else %}
-              <h4 class="card-title">Prix : Sur Devis</h4>
+              <h6 class="card-title">Prix : Sur Devis</h6>
             {% endif %}
             {#{% if product.images != [] %}#}
             {% if product.images is not empty %}
@@ -50,24 +52,27 @@
         </tr>
       {% endfor %}
 
-      <ul class="pagination d-flex justify-content-center">
-        <li class="page-product bg-secondary {% if actualPage == 1 %}disabled{% endif %}">
-          <a class="page-link text-secondary" href="{{ path('product_index', {'page': actualPage - 1}) }}">&laquo;</a>
-        </li>
-        {% for page in pages %}
-          <li class="page-product {% if actualPage == page %}active{% endif %}">
-            <a class="page-link text-secondary" href="{{ path('product_index', {'page': page}) }}">{{ page }}</a>
+      <div class="d-flex justify-content-evenly align-items-center p-0 mt-2">
+        {% if is_granted('ROLE_ADMIN') %}
+          <a class="btn btn-dark" href="{{ path('product_new') }}">Ajouter un produit</a>
+        {% endif %}
+        <ul class="pagination d-flex justify-content-center p-0">
+          <li class="page-product bg-secondary {% if actualPage == 1 %}disabled{% endif %}">
+            <a class="page-link text-secondary" href="{{ path('product_index', {'page': actualPage - 1}) }}">&laquo;</a>
           </li>
-        {% endfor %}
-        <li class="page-product {% if actualPage == lastPage %}disabled{% endif %}">
-          <a class="page-link text-secondary" href="{{ path('product_index', {'page': actualPage + 1}) }}">&raquo;</a>
-        </li>
-      </ul>
-
-      {% if is_granted('ROLE_ADMIN') %}
-        <a class="btn btn-secondary" href="{{ path('product_new') }}">Ajouter un produit</a>
-        <a class="my-3" href="{{ path('admin') }}">Retour à la page admin</a>
-      {% endif %}
+          {% for page in pages %}
+            <li class="page-product {% if actualPage == page %}active{% endif %}">
+              <a class="page-link text-secondary" href="{{ path('product_index', {'page': page}) }}">{{ page }}</a>
+            </li>
+          {% endfor %}
+          <li class="page-product {% if actualPage == lastPage %}disabled{% endif %}">
+            <a class="page-link text-secondary" href="{{ path('product_index', {'page': actualPage + 1}) }}">&raquo;</a>
+          </li>
+        </ul>
+        {% if is_granted('ROLE_ADMIN') %}
+          <a class="my-3 text-dark" href="{{ path('admin') }}">Retour à la page admin</a>
+        {% endif %}
+      </div>
     </div>
   </div>
 {% endblock %}

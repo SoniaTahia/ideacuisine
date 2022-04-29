@@ -4,46 +4,59 @@
 
 {% block body %}
 
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <h1>Modifier le produit</h1>
+  <div class="d-flex flex-column w-100 align-items-center">
+    <div class="center col-10 mt-0 d-flex flex-column w-75">
+      <h1 class="slogan mt-2 mb-5 fw-lighter fst-italic d-flex justify-content-center ">
+        Modifier {{ product.name }}</h1>
 
-    {{ include('product/_form.html.twig', {'button_label': 'Modifiier'}) }}
+      {{ form_start(form) }}
 
-    {{ include('product/_delete_form.html.twig') }}
+      <div class="d-flex w-100">
+        <div class="w-50">{{ form_row(form.reference) }}</div>
+        <div class="w-50 ms-5">{{ form_row(form.name) }}</div>
+        <div class="w-50 ms-5">{{ form_row(form.category) }}</div>
+      </div>
+      <p class="w-100">{{ form_row(form.description) }}</p>
+      <div class="d-flex w-100">
+        <div class="w-50">{{ form_row(form.price) }}</div>
+        <div class="w-50 ms-5">{{ form_row(form.stock) }}</div>
+      </div>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Image Id</th>
-          <th>Titre</th>
-          <th>Alt</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for image in images %}
+      <div class="d-flex justify-content-evenly w-100">
+        <button type="submit" class="btn btn-dark my-5 mx-3 w-25">Modifier</button>
+        <div class="w-25">{{ include('product/_delete_form.html.twig') }}</div>
+      </div>
+
+      {{ form_end(form) }}
+      {#{{ include('product/_form.html.twig', {'button_label': 'Modifiier'}) }}#}
+
+      <table class="table table-hover table-light table-bordered border-dark border border-5 w-100">
+        <thead>
           <tr>
-            <td>{{ image.id }}</td>
-            <td>{{ image.name }}</td>
-            <td>{{ image.alt }}</td>
-            <td>
-              <a href="/upload"></a>
-            </td>
-            <td>
-              <a class="btn btn-light mb-1" href="{{ path('image_show', {'id': image.id}) }}">Voir</a>
-            </td>
+            <th class="text-center">Image Id</th>
+            <th class="text-center">Titre de l'image</th>
+            <th class="text-center">Action</th>
           </tr>
-        {% else %}
-          <tr>
-            <td colspan="4">Aucune image enregistrée</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {% for image in images %}
+            <tr>
+              <td>{{ image.id }}</td>
+              <td>{{ image.name }}</td>
+              <td class="d-flex justify-content-evenly align-items-center">
+                <a class="btn btn-secondary" href="{{ path('image_show', {'id': image.id}) }}">Voir</a>
+                <a class="btn btn-secondary" href="{{ path('image_new', {'product': product.id}) }}">Ajouter une image</a>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="4">Aucune image enregistrée</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 
-    <a class="btn btn-secondary" href="{{ path('image_new', {'product': product.id}) }}">Ajouter une image</a>
+      <a class="text-dark text-center" href="{{ path('product_index') }}">Retour au menu Produit</a>
+    </div>
 
-    <a href="{{ path('product_index') }}">Retour au menu Produit</a>
-  </div>
-
-{% endblock %}
+  {% endblock %}
