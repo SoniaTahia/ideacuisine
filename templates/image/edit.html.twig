@@ -4,14 +4,16 @@
 
 {% block body %}
 
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-      <h1>Modifier l'image</h1>
+  <div class="center col-10 mt-0 d-flex flex-column align-items-center w-75 ms-5">
+    <h1 class="mb-5">Modifier l'image</h1>
 
-      {{ include('image/_form.html.twig', {'button_label': 'Modifier'}) }}
+    {{ include('image/_form.html.twig', {'button_label': 'Modifier'}) }}
 
+    <div class="d-flex align-items-center justify-content-between w-50">
       {{ include('image/_delete_form.html.twig') }}
-      
-      <a href="{{ path('image_index') }}">Retour au menu précédent</a>
+
+      <a class="text-dark" href="{{ path('image_index') }}">Retour au menu précédent</a>
+    </div>
   </div>
 
 {% endblock %}
