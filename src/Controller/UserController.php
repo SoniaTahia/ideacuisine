@@ -28,7 +28,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'user_new', methods: ['GET', 'POST'])]
+    /*#[Route('/new', name: 'user_new', methods: ['GET', 'POST'])]
     #[IsGranted("ROLE_ADMIN")]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -50,7 +50,7 @@ class UserController extends AbstractController
             'user' => $user,
             'form' => $form,
         ]);
-    }
+    }*/
 
     #[Route('/{id}/show', name: 'user_show', methods: ['GET'])]
     #[IsGranted("ROLE_ADMIN")]

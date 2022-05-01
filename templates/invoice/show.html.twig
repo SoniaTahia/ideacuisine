@@ -4,50 +4,86 @@
 
 {% block body %}
 
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <h1>Facture
-      {{ invoice.name }}</h1>
+  <div class="center col-10 mt-3 d-flex flex-column align-items-center">
+    <div class="card w-75 pb-5" style="width: 36rem;">
 
-    <h2>Mes achats</h2>
-    <table class="table ">
-      <thead>
-        <tr>
-          <th scope="col">Date</th>
-          <td>{{ invoice.createdAt|date("d/m/Y")}}</td>
-        </tr>
-        <tr>
-          <th scope="col">Produit</th>
-          <td>{{ product.name }}</td>
-        </tr>
-        <tr>
-          <th scope="col">Produit</th>
-          <td>{{ product.name }}</td>
-        </tr>
-        <tr>
-          <th scope="col">Prix</th>
-          <td>
-            {{invoice.price|price }}</td>
-        </tr>
-        <tr>
-          <th scope="col">Nom</th>
-          <td>{{ invoice.name }}</td>
-        </tr>
-        <tr>
-          <th scope="col">Prénom</th>
-          <td>{{ invoice.firstname }}</td>
-        </tr>
-        <tr>
-          <th scope="col">Adresse de livraison</th>
-          <td>{{ invoice.adress }}
-            {{ invoice.postCode }}
-            {{ invoice.town }}
-            {{ invoice.country }}</td>
-        </tr>
-        <tbody></table>
-        {% if is_granted('ROLE_ADMIN') %}
-          <a class="my-3 btn btn-secondary" href="{{ path('invoice_edit', {'id': invoice.id}) }}">Modifier l'adresse de livraison</a>
-          <a class="my-3" href="{{ path('invoice_index') }}">Retour au menu Facture</a>
-        {% endif %}
-        <a class="my-3" href="{{ path('invoice_user_invoice', {'id': user.id}) }}">Retour à Mes Factures</a>
+      <!--logo+date-->
+      <div class="d-flex justify-content-between align-items-center m-2">
+        <img src="/upload/LOGO_FINAL_IDEA_CUISINE.png" style="max-width: 8rem" alt="logo">
+        <h5 class="fw-bold">Date
+          {{ invoice.createdAt|date("d/m/Y")}}</h5>
       </div>
-    {% endblock %}
+
+      <!--facture n°-->
+      <div class="card-body">
+        <h3 class="card-title text-center my-3 fw-bolder align-items-center">Facture n°{{ invoice.id }}</h3>
+      </div>
+
+      <!--Client nom+ prénom + réf client-->
+      <div class="card-body border border-3 mx-2">
+        <div class="d-flex align-items-center mb-2">
+          <h5 class="fw-bold mb-0">Code client :
+          </h5>
+          <p class="ms-2 mb-0">{{ invoice.invoiceUser.id }}</p>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+          <h5 class="fw-bold mb-0">Nom :
+          </h5>
+          <p class="ms-2 mb-0">{{ invoice.firstname }}
+            {{ invoice.name }}</p>
+        </div>
+      </div>
+      <!--Articles+prix unitaire+qté+prix total-->
+
+      <div class="card-body border-start border-end border border-3 mx-2">
+        <h5 class="fw-bold mb-2">Articles :</h5>
+        <table class="table table-hover table-light table-bordered border-dark border border-2 w-100">
+          <thead>
+            <tr>
+              <th scope="col" class="text-center">
+                Référence</th>
+              <th scope="col" class="text-center w-50">
+                Désignation</th>
+              <th scope="col" class="text-center">Prix unitaire</th>
+              <th scope="col" class="text-center">Quantité</th>
+            </tr>
+          </thead>
+          <tbody class="table-bordered border-dark">
+          {% for row in purchases %}
+            <tr class="table-active border-dark">
+              <th scope="row" class="text-center">{{ row.product.reference }}</th>
+              <td class="text-center">{{ row.product.name }}</td>
+              <td class="text-center">{{ row.unitPrice|price }}</td>
+              <td class="text-center">
+                {{ row.quantity }}
+              </td>
+            </tr>
+          </tbody>
+          {% endfor %}
+          <tfoot>
+            <th scope="row" class="text-center">Prix Total TTC</th>
+            <td colspan="3" class="text-end">
+              {{ invoice.price|price }}
+            </td>
+          </tfoot>
+        </table>
+      </div>
+      <!--Adresse livraison-->
+      <div class="card-body border border-3 mx-2">
+        <h5 class="fw-bold mb-2">Adresse de livraison :</h5>
+        <div class="d-flex flex-column align-items-center">
+          <p class="mb-0">{{ invoice.adress }}</p>
+          <p class="mb-0">{{ invoice.postCode }}</p>
+          <p class="mb-0">{{ invoice.town }}</p>
+          <p class="mb-0">{{ invoice.country }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center p-0 mt-2 w-75">
+      {% if is_granted('ROLE_ADMIN') %}
+        <a class="my-3 text-dark" href="{{ path('invoice_index') }}">Retour au menu Facture</a>
+        <a class="my-3 btn btn-danger" href="{{ path('invoice_edit', {'id': invoice.id}) }}">Modifier l'adresse de livraison</a>
+      {% endif %}
+        <a class="my-3 text-dark" href="{{ path('invoice_user_invoice', {'id': user.id}) }}">Retour à Mes Factures</a>
+    </div>
+  {% endblock %}

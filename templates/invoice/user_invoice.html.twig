@@ -4,23 +4,23 @@
 
 {% block body %}
 
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <h1>Liste de mes factures</h1>
-    <table class="table table-hover">
+  <div class="center col-10 mt-0 d-flex flex-column align-items-center h-100">
+    <h1 class="slogan mt-2 mb-5 mx-0 d-flex justify-content-center fw-lighter fst-italic">Liste de mes factures</h1>
+    <table class="table table-hover table-light table-bordered border-light border border-2 w-75">
       <thead>
         <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Client</th>
-          <th scope="col">Actions</th>
+          <th scope="col" class="text-center text-light bg-danger">Date</th>
+          <th scope="col" class="text-center text-light bg-danger">Client</th>
+          <th scope="col" class="text-center text-light bg-danger">Actions</th>
         </tr>
       </thead>
       <tbody>
         {% for invoice in invoices %}
           {% if app.user.id == invoice.invoiceUser.id %}
             <tr class="table-active">
-              <td>{{ invoice.createdAt|date("d/m/Y") }}</td>
+              <td class="text-center">{{ invoice.createdAt|date("d/m/Y") }}</td>
               <td>{{ invoice.name }}</td>
-              <td>
+              <td class="text-center">
                 <a class="btn btn-light mb-1" href="{{ path('invoice_show', {'id': invoice.id}) }}" role="button">Voir</a>
               </td>
             </tr>
@@ -32,5 +32,9 @@
         {% endfor %}
       </tbody>
     </table>
+
+    <div class="d-flex align-items-center p-0 mt-2 w-75">
+      <a class="my-3 text-dark ms-auto" href="{{ path('user_profile', {'id': user.id}) }}">Retour à ma page</a>
+    </div>
   </div>
 {% endblock %}

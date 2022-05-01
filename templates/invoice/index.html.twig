@@ -3,25 +3,27 @@
 {% block title %}Liste des factures{% endblock %}
 
 {% block body %}
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <h1>Liste des factures</h1>
-    <table class="table table-hover">
+  <div class="center col-10 h-100 mt-3 d-flex flex-column align-items-center">
+    <h1 class="slogan mt-2 mb-3 mx-0 d-flex justify-content-center fw-lighter fst-italic">Liste des factures</h1>
+    <table class="table table-hover table-light table-bordered border-light border border-2 w-75">
       <thead>
         <tr>
-          <th scope="col">
+          <th scope="col" class="text-center text-light bg-danger">
             Id facture</th>
-          <th scope="col">Date</th>
-          <th scope="col">Client</th>
-          <th scope="col">Actions</th>
+          <th scope="col" class="text-center text-light bg-danger">Date</th>
+          <th scope="col" class="text-center text-light bg-danger">Identifiant Client</th>
+          <th scope="col" class="text-center text-light bg-danger">Client</th>
+          <th scope="col" class="text-center text-light bg-danger">Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="table-bordered border-light">
         {% for invoice in invoices %}
-          <tr class="table-active">
-            <th scope="row">{{ invoice.id }}</th>
-            <td>{{ invoice.createdAt|date("d/m/Y") }}</td>
+          <tr class="table-active border-light">
+            <th scope="row" class="text-center">{{ invoice.id }}</th>
+            <td class="text-center">{{ invoice.createdAt|date("d/m/Y") }}</td>
+            <td class="text-center">{{ invoice.invoiceUser.id }}</td>
             <td>{{ invoice.name }}</td>
-            <td>
+            <td class="text-center">
               <a class="btn btn-light mb-1" href="{{ path('invoice_show', {'id': invoice.id}) }}" role="button">Voir</a>
             </td>
           </tr>
@@ -32,6 +34,25 @@
         {% endfor %}
       </tbody>
     </table>
-    <a class="my-3" href="{{ path('admin') }}">Retour à la page admin</a>
+
+    <div class="d-flex align-items-center p-0 mt-2 w-75">
+      <ul class="pagination d-flex justify-content-center p-0">
+        <li class="page-invoice bg-secondary {% if actualPage == 1 %}disabled{% endif %}">
+          <a class="page-link text-secondary" href="{{ path('invoice_index', {'page': actualPage - 1}) }}">&laquo;</a>
+        </li>
+        {% for page in pages %}
+          <li class="page-invoice {% if actualPage == page %}active{% endif %}">
+            <a class="page-link text-secondary" href="{{ path('invoice_index', {'page': page}) }}">{{ page }}</a>
+          </li>
+        {% endfor %}
+        <li class="page-invoice {% if actualPage == lastPage %}disabled{% endif %}">
+          <a class="page-link text-secondary" href="{{ path('invoice_index', {'page': actualPage + 1}) }}">&raquo;</a>
+        </li>
+      </ul>
+      {% if is_granted('ROLE_ADMIN') %}
+        <a class="my-3 text-dark ms-auto" href="{{ path('admin') }}">Retour à la page admin</a>
+      {% endif %}
+    </div>
+
   </div>
 {% endblock %}

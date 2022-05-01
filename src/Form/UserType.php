@@ -35,25 +35,6 @@ class UserType extends AbstractType
                     'user' => "ROLE_USER",
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
-                'label' => 'votre mot de passe :',
-                'mapped' => false,
-                'attr' => [
-                    'autocomplete' => 'new-password',
-                    'placeholder' => 'entrez votre mot de passe ici',
-                ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez entrer un mot de passe',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} characteres',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
             ->add('firstname', TextType::class, [
                 'label' => "votre prénom : ",
                 'required' => true,

@@ -4,44 +4,51 @@
 
 {% block body %}
 
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <h1>Confirmation de votre commande</h1>
+  <div class="center col-10 h-100 mt-3 d-flex flex-column align-items-center">
+    <h1 class="slogan mt-2 mb-3 mx-0 d-flex justify-content-center fw-lighter fst-italic">Confirmation de votre commande</h1>
     <h2>Mon Panier</h2>
-    <table class="table table-hover">
+    <table class="table table-hover table-light table-bordered border-dark border border-2 w-75">
       <thead>
         <tr>
-          <th scope="col">Produit</th>
-          <th scope="col">Prix</th>
-          <th scope="col">Quantité</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for row in cartProducts %}
-          <tr class="table-active">
-            <td>{{ row.product.name }}</td>
-            <td>{{ row.product.price|price }}</td>
-            <td>{{ row.qty }}</td>
-          </tr>
-        {% else %}
           <tr>
-            <td colspan="5">Aucun produit dans votre panier</td>
+            <th scope="col" class="text-center">
+              Référence</th>
+            <th scope="col" class="text-center">Produit</th>
+            <th scope="col" class="text-center">Prix</th>
+            <th scope="col" class="text-center">Quantité</th>
           </tr>
+        </thead>
+        <tbody>
+          {% for row in cartProducts %}
+            <tr class="table-active">
+              <td scope="row">{{ row.product.reference }}</td>
+              <td class="text-center">{{ row.product.name }}</td>
+              <td class="text-center">{{ row.product.price|price }}</td>
+              <td class="text-center">{{ row.qty }}</td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="5">Aucun produit dans votre panier</td>
+            </tr>
+          </tbody>
         {% endfor %}
-        <tr>
-          <td colspan="2">Total :
+        <tfoot>
+          <th scope="row" class="text-center">Prix Total TTC</th>
+          <td colspan="3" class="text-end">
+            {{ total|price }}
           </td>
-          <td>{{ total }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        </tfoot>
+      </table>
 
-    <h2>Adresse de livraison</h2>
-
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-secondary mt-2 mb-3">{{ button_label|default('Confirmer et Payer') }}</button>
-    {{ form_end(form) }}
-  </div>
-
-{% endblock %}
+      <div class="w-50">
+        <h2>Adresse de livraison</h2>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <button class="btn btn-danger mt-3">
+            {{ button_label|default('Confirmer et Payer') }}</button>
+        </div>
+        {{ form_end(form) }}
+      </div>
+    </div>
+  {% endblock %}

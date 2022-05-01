@@ -4,12 +4,12 @@
 
 {% block body %}
 
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <h1>Ajouter un nouveau produit</h1>
+  <div class="center col-10 mt-0 d-flex flex-column justify-content-between mx-5 w-50">
+    <h1 class="slogan mt-2 mb-5 mx-0 d-flex justify-content-center fw-lighter fst-italic">Ajouter un nouveau produit</h1>
 
     {{ include('product/_form.html.twig') }}
 
-    <a href="{{ path('product_index') }}">back to list</a>
+    <a class="text-dark" href="{{ path('product_index') }}">Retour au menu Produit</a>
 
   </div>
 

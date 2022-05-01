@@ -3,10 +3,13 @@
 {% block title %}Email reset password envoyé{% endblock %}
 
 {% block body %}
-    <p>
-
-        Si un compte correspondant à votre adresse e-mail existe, un e-mail vient d'être envoyé contenant un lien que vous pouvez utiliser pour réinitialiser votre mot de passe.
-        Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
-    </p>
-    <p>Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou <a href="{{ path('app_forgot_password_request') }}">réessayer</a>.</p>
+  <div class="center col-10 mt-0 d-flex flex-column align-items-center">
+    <h1 class="slogan mt-2 mb-5 fw-lighter fst-italic d-flex justify-content-center mb-5">Mail envoyé</h1>
+    <h6 class="w-75 fw-bold mb-5">Si un compte correspondant à votre adresse e-mail existe, un e-mail vient d'être envoyé contenant un lien que vous pouvez utiliser pour réinitialiser votre mot de passe. <br> Ce lien expirera dans
+      {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+    </h6>
+    <h6 class="w-75 fw-bold text-center">Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou
+      <a class="text-danger" href="{{ path('app_forgot_password_request') }}">réessayer</a>.</h6>
+  </div>
+</div>
 {% endblock %}

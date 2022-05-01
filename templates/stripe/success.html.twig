@@ -3,48 +3,51 @@
 {% block title %}Mon paiement{% endblock %}
 
 {% block body %}
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-    <h1>Votre commande a été validée avec succès</h1>
+  <div class="center col-10 h-100 mt-3 d-flex flex-column align-items-center">
+    <h1 class="slogan mt-2 mb-3 mx-0 d-flex justify-content-center fw-lighter fst-italic">Votre commande a été validée avec succès</h1>
 
-    <h2>Votre commande</h2>
-    <table class="table table-hover">
+    <h2 class="text-light">Votre commande</h2>
+    <table class="table table-hover table-light table-bordered border-dark border border-2 w-75">
       <thead>
         <tr>
-          <th scope="col">Produit</th>
-          <th scope="col">Prix</th>
-          <th scope="col">Quantité</th>
+          <th scope="col" class="text-center">
+            Référence</th>
+          <th scope="col" class="text-center">Produit</th>
+          <th scope="col" class="text-center">Prix</th>
+          <th scope="col" class="text-center">Quantité</th>
         </tr>
       </thead>
       <tbody>
         {% for row in purchases %}
           <tr class="table-active">
-            <td>{{ row.product.name }}</td>
-            <td>{{ row.unitPrice }}</td>
-            <td>{{ row.quantity }}</td>
-          </tr>
-        {% else %}
-          <tr>
-            <td colspan="5">Aucun produit dans votre panier</td>
+            <td scope="row">{{ row.product.reference }}</td>
+            <td class="text-center">{{ row.product.name }}</td>
+            <td class="text-center">{{ row.product.price|price }}</td>
+            <td class="text-center">{{ row.quantity }}</td>
           </tr>
         {% endfor %}
-        <tr>
-          <td colspan="2">Total :
+        <tfoot>
+          <th scope="row" class="text-center">Prix Total TTC</th>
+          <td colspan="3" class="text-end">
+            {{ invoice.price|price }}
           </td>
-          <td>{{ invoice.price|price }}
-          </td>
-        </tr>
+        </tfoot>
       </tbody>
     </table>
-    <h2>Votre adresse de livraison</h2>
 
-    <p>{{ invoice.name }}
-      {{ invoice.firstname }}</p>
-    <p>{{ invoice.adress }}</p>
-    <p>{{ invoice.postCode }}
-      {{ invoice.town }}</p>
-    <p>{{ invoice.country }}</p>
+    <div class="border-dark border border-2 w-75 bg-light text-center">
+      <h2>Votre adresse de livraison</h2>
+      <p>{{ invoice.name }}
+        {{ invoice.firstname }}</p>
+      <p>{{ invoice.adress }}</p>
+      <p>{{ invoice.postCode }}
+        {{ invoice.town }}</p>
+      <p>{{ invoice.country }}</p>
+    </div>
 
-    <h3>Statut de la commande : Payée</h3>
+    <div class="border-dark border border-2 w-75 bg-light text-center text-success">
+      <h3>Statut de la commande : Payée</h3>
+    </div>
   </div>
 
 {% endblock %}

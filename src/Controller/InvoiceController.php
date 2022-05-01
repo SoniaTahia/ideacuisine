@@ -12,6 +12,7 @@ use App\Form\InvoiceType;
 use App\Repository\UserRepository;
 use App\Repository\InvoiceRepository;
 use App\Repository\ProductRepository;
+use App\Repository\PurchaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,25 +23,63 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class InvoiceController extends AbstractController
 {
-    #[Route('/invoice', name: 'invoice_index')]
-    public function index(InvoiceRepository $invoiceRep): Response
+    #[Route('/invoice/{page}',
+    name: 'invoice_index',
+    defaults: ['page' => 1], 
+    requirements: ["page" => "\d+"],
+    methods: ['GET'])]
+    public function index(InvoiceRepository $invoiceRep, int $page): Response
     {
         $user = $this->getUser();
 
+        $invoicePerPage = 8;
+        $invoicesCount = $invoiceRep->count([]);
+        $pages = [];
+        $pageCounter = 0;
+        for ($i = 0; $i < $invoicesCount; $i += $invoicePerPage) {
+            $pageCounter++;
+            $pages[] = $pageCounter;
+        }
+        if ($page > $invoicesCount / $invoicePerPage) {
+            $page = $pageCounter;
+        }
+
+        if ($page < 1) {
+            $page = 1;
+        }
+
+        
+        $invoices = $invoiceRep->findBy(
+            [],
+            [
+                'id' => "ASC",
+            ],
+            $invoicePerPage,
+            ($page - 1) * $invoicePerPage,
+        );
+
         return $this->render('invoice/index.html.twig', [
-            'invoices' => $invoiceRep->findAll(),
+            'invoices' => $invoices,
+            'actualPage' => $page,
+            'pages' => $pages,
+            'lastPage' => $pageCounter,
             'user' => $user,
         ]);
     }
 
     #[Route('/{id}/show', name: 'invoice_show', methods: ['GET'])]
-    public function show(Invoice $invoice, Product $product, User $user): Response
+    public function show(Invoice $invoice,Product $product, UserRepository $userRep, PurchaseRepository $purchaseRepo, ProductRepository $productRep): Response
     {
         $user = $this->getUser();
 
+        $purchaseCriteria = [
+            "invoice" => $invoice,
+        ];
+        $purchases = $purchaseRepo->findBy($purchaseCriteria);
+
         return $this->render('invoice/show.html.twig', [
             'invoice' => $invoice,
-            'product' => $product,
+            'purchases' => $purchases,
             'user' => $user,
         ]);
     }
