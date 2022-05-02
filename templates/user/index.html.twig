@@ -6,21 +6,21 @@
   <div class="center col-10 mt-0 d-flex flex-column align-items-center">
     <h1 class="slogan mt-2 mb-5 mx-0 d-flex justify-content-center fw-lighter fst-italic">Liste des utilisateurs</h1>
 
-    <table class="table table-hover table-light table-bordered border-dark border border-5 w-100">
-      <thead scope="col-12">
-        <tr>
-          <th scope="col-1" class="text-center">Utilisateur Id</th>
-          <th scope="col-2" class="text-center">Email</th>
-          <th scope="col-2" class="text-center">Roles</th>
-          <th scope="col-2" class="text-center">Nom</th>
-          <th scope="col-2" class="text-center">Prénom</th>
-          <th scope="col-3" class="text-center">Actions</th>
+    <table class="table table-hover table-light table-bordered border-dark border border-5 w-75">
+      <thead scope="col">
+        <tr class="text-center">
+          <th scope="col" class="text-center">Utilisateur Id</th>
+          <th scope="col" class="text-center">Email</th>
+          <th scope="col" class="text-center">Roles</th>
+          <th scope="col" class="text-center">Nom</th>
+          <th scope="col" class="text-center">Prénom</th>
+          <th scope="col" class="text-center w-25">Actions</th>
         </tr>
       </thead>
       <tbody>
         {% for user in users %}
           <tr>
-            <td>{{ user.id }}</td>
+            <td class="text-center">{{ user.id }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
             <td>{{ user.name }}</td>
@@ -38,6 +38,6 @@
       </tbody>
     </table>
     {#<a class="btn btn-secondary" href="{{ path('user_new') }}">Ajouter un utilisateur</a>#}
-    <a class="my-3" href="{{ path('admin') }}">Retour à la page admin</a>
+    <a class="my-3 text-dark" href="{{ path('admin') }}">Retour à la page admin</a>
   </div>
 {% endblock %}

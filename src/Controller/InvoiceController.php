@@ -68,7 +68,7 @@ class InvoiceController extends AbstractController
     }
 
     #[Route('/{id}/show', name: 'invoice_show', methods: ['GET'])]
-    public function show(Invoice $invoice,Product $product, UserRepository $userRep, PurchaseRepository $purchaseRepo, ProductRepository $productRep): Response
+    public function show(Invoice $invoice, UserRepository $userRep, PurchaseRepository $purchaseRepo, ProductRepository $productRep): Response
     {
         $user = $this->getUser();
 
