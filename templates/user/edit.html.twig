@@ -3,8 +3,8 @@
 {% block title %}Modifier le profil{% endblock %}
 
 {% block body %}
-  <div class="center col-10 m-0 d-flex flex-column align-items-center">
-    <h1 class="text-light d-flex justify-content-center mt-2 mb-5">Modifier le profil de
+  <div class="d-flex flex-column align-items-center justifiy-content-center w-100">
+    <h1 class="slogan fw-lighter fst-italic d-flex align-items-center justify-content-center mt-2 mb-5">Modifier le profil de
       {{ user.firstname }}
       {{ user.name }}</h1>
 
@@ -22,16 +22,14 @@
     </div>
     <div class="w-100 me-3">{{ form_row(form.email) }}</div>
     <div class="w-50">{{ form_row(form.roles) }}</div>
-    
 
-    <div class="d-flex justify-content-between align-items-center w-100">
-      <button class="btn btn-secondary mt-2 mb-3 w-25">{{ button_label|default('Modifier') }}</button>
-      <div class="w-25">{{ include('user/_delete_form.html.twig') }}</div>
-      <a class="text-dark" href="{{ path('user_index') }}">Retour à la liste des Utilisateurs</a>
+    <div class="d-flex justify-content-evenly w-100">
+      <button class="btn btn-dark mt-2 mb-3 w-50">{{ button_label|default('Modifier') }}</button>
     </div>
 
     {{ form_end(form) }}
 
-    
+    <div class="w-25">{{ include('user/_delete_form.html.twig') }}</div>
+    <a class="text-dark" href="{{ path('user_index') }}">Retour à la liste des Utilisateurs</a>
   </div>
 {% endblock %}

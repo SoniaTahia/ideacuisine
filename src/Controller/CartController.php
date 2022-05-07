@@ -33,10 +33,6 @@ class CartController extends AbstractController
             $cart[$id] = 1;
         }
         $session->set('cart', $cart);
-        /*[
-            281 => 1,
-            302 => 2,
-        ];*/
 
         return $this->redirectToRoute('cart_show', [
             'id' => $id,
@@ -106,7 +102,7 @@ class CartController extends AbstractController
 
             $total += $product->getPrice() * $qty;
         }
-        //dd($fullCart);
+        
         return $this->render('cart/show.html.twig', [
             'cartProducts' => $fullCart,
             'total' => $total,

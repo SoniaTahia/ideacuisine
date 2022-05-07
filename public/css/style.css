@@ -4,10 +4,9 @@
   box-sizing: border-box;
   font-family: "Electrolize", sans-serif; 
 }
-
 .container-fluid {
-  background-color: rgb(163, 163, 163);
-  margin: 0;
+   background-color: rgb(163, 163, 163);
+   width: 100vw;
 }
 
 .logo {
@@ -39,8 +38,8 @@ h1 {
 }
 
 .picLink {
-  height: 150px;
-  width: 220px;
+  height: 150px !important;
+  width: 220px !important;
   border: solid 5px white;
   border-radius: 2%;
 }
@@ -63,6 +62,29 @@ h1 {
 .productPic3 {
   height: 300px;
   width: 300px;
+}
+
+@media only screen and (max-width:800px){
+  
+  .container-fluid{
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .newNav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .navItem{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+ 
 }
 
 

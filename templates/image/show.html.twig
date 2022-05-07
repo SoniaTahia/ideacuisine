@@ -8,9 +8,16 @@
   <div class="center col-10 m-0 d-flex flex-column bg-light align-items-center">
     <h1 class="text-secondary d-flex justify-content-center mt-2 mb-5">{{ image.name }}</h1>
 
-    <div class="d-flex align-items-center w-100 mt-2">
+    <div class="d-flex align-items-center justify-content-around col-10 mt-2 mx-5">
+      
+      <img src="/upload/{{ image.picture }}" class="productPic3 img-fluid" alt="image {{ image.name }}">
 
-      <img src="/upload/{{ image.picture }}" class="productPic3" alt="image {{ image.name }}">
+      <div class="d-flex flex-column justify-content-evenly align-items-center w-100">
+        {% if is_granted('ROLE_ADMIN') %}
+          <a class="my-3 btn btn-secondary w-50" href="{{ path('image_edit', {'id': image.id}) }}">Modifier</a>
+          {{ include('image/_delete_form.html.twig') }}
+        {% endif %}
+      </div>
 
       <table class="table table-hover table-light table-bordered table-dark border border-1 w-25">
         <tbody>
@@ -30,12 +37,8 @@
       </table>
 
     </div>
-    <div class="d-flex justify-content-evenly align-items-center w-100">
-      {% if is_granted('ROLE_ADMIN') %}
-        <a class="my-3 btn btn-secondary" href="{{ path('image_edit', {'id': image.id}) }}">Modifier</a>
-        {{ include('image/_delete_form.html.twig') }}
-      {% endif %}
-      <a class="text-dark" href="{{ path('image_index') }}">Retour au menu Image</a>
-    </div>
+
+    <a class="text-dark" href="{{ path('image_index') }}">Retour au menu Image</a>
+
   </div>
 {% endblock %}

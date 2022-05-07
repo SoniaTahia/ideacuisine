@@ -3,12 +3,12 @@
 {% block title %}Ajouter une image{% endblock %}
 
 {% block body %}
-  <div class="center col-10 mt-0 d-flex flex-column justify-content-between">
-      <h1>Ajouter une image</h1>
+  <div class="d-flex flex-column w-100 align-items-center">
+    <h1 class="slogan mt-2 mb-5 fw-lighter fst-italic d-flex justify-content-center ">Ajouter une image</h1>
 
-      {{ include('image/_form.html.twig') }}
+    {{ include('image/_form.html.twig') }}
 
-      <a href="{{ path('image_index') }}">Retour au menu Image</a>
+    <a class="text-dark "href="{{ path('image_index') }}">Retour au menu Image</a>
   </div>
 
 {% endblock %}

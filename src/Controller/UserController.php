@@ -66,8 +66,6 @@ class UserController extends AbstractController
     #[IsGranted("ROLE_ADMIN")]
     public function edit(Request $request, User $user, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
-        $user = $this->getUser();
-        
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -109,10 +107,11 @@ class UserController extends AbstractController
 
     }
 
-     #[Route('/{id}/profile_edit', name: 'profile_edit', methods: ['GET', 'POST'])]
-    public function profileEdit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+     #[Route('/{id}/profile_edit', name: 'user_profile_edit', methods: ['GET', 'POST'])]
+     #[IsGranted("ROLE_USER")]
+    public function profileEdit(Request $request, User $user, UserRepository $userRep, EntityManagerInterface $entityManager): Response
     {
-        $user = $this->getUser();
+        //$user = $this->getUser();
 
         $form = $this->createForm(ProfileType::class, $user);
         $form->handleRequest($request);

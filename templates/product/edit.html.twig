@@ -4,10 +4,11 @@
 
 {% block body %}
 
-  <div class="d-flex flex-column w-100 align-items-center">
-    <div class="center col-10 mt-0 d-flex flex-column w-75">
-      <h1 class="slogan mt-2 mb-5 fw-lighter fst-italic d-flex justify-content-center ">
-        Modifier {{ product.name }}</h1>
+  <div class="center col-10 mt-0 d-flex flex-column align-items-center">
+    <div class="row d-flex justify-content-evenly m-0 w-75">
+      <h1 class="slogan mt-1 mb-3 mx-0 d-flex justify-content-center text-secondary fst-italic">
+        Modifier
+        {{ product.name }}</h1>
 
       {{ form_start(form) }}
 
@@ -22,20 +23,18 @@
         <div class="w-50 ms-5">{{ form_row(form.stock) }}</div>
       </div>
 
-      <div class="d-flex justify-content-evenly w-100">
-        <button type="submit" class="btn btn-dark my-5 mx-3 w-25">Modifier</button>
-        <div class="w-25">{{ include('product/_delete_form.html.twig') }}</div>
+      <div class="d-flex justify-content-evenly">
+        <button class="btn btn-dark mt-5 mb-3 w-25">{{ button_label|default('Modifier') }}</button>
       </div>
 
       {{ form_end(form) }}
-      {#{{ include('product/_form.html.twig', {'button_label': 'Modifiier'}) }}#}
 
-      <table class="table table-hover table-light table-bordered border-dark border border-5 w-100">
+      <table class="mt-5 table table-hover table-light table-bordered border-dark border border-5 w-100">
         <thead>
           <tr>
             <th class="text-center">Image Id</th>
-            <th class="text-center">Titre de l'image</th>
-            <th class="text-center">Action</th>
+            <th class="text-center w-25">Titre de l'image</th>
+            <th class="text-center w-75">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -44,8 +43,8 @@
               <td>{{ image.id }}</td>
               <td>{{ image.name }}</td>
               <td class="d-flex justify-content-evenly align-items-center">
-                <a class="btn btn-secondary" href="{{ path('image_show', {'id': image.id}) }}">Voir</a>
-                <a class="btn btn-secondary" href="{{ path('image_new', {'product': product.id}) }}">Ajouter une image</a>
+                <a class="btn btn-secondary w-25" href="{{ path('image_show', {'id': image.id}) }}">Voir</a>
+                <a class="btn btn-success" href="{{ path('image_new', {'product': product.id}) }}">Ajouter une image</a>
               </td>
             </tr>
           {% else %}
@@ -55,8 +54,9 @@
           {% endfor %}
         </tbody>
       </table>
-
       <a class="text-dark text-center" href="{{ path('product_index') }}">Retour au menu Produit</a>
     </div>
 
-  {% endblock %}
+  </div>
+
+{% endblock %}

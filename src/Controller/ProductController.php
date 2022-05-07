@@ -122,7 +122,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Product $product, EntityManagerInterface $entityManager, UploadService $uploadService, ImageRepository $imageRep): Response
+    public function edit(Request $request, Product $product, EntityManagerInterface $entityManager,  UploadService $uploadService, ImageRepository $imageRep): Response
     {
         $user = $this->getUser();
         

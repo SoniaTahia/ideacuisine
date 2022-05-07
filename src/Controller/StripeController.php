@@ -69,6 +69,8 @@ class StripeController extends AbstractController
     public function success(Invoice $invoice, string $stripeSuccessKey, SessionInterface $session, PurchaseRepository $purchaseRepo): Response
     {
         $user = $this->getUser();
+
+        //Trouver le code pour valider le success seulement si STRIPE confirme le paiement
         
         if ($stripeSuccessKey != $invoice->getStripeSuccessKey()) {
             $this->redirectToRoute("stripe_error_payment", [

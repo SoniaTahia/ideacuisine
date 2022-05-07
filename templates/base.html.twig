@@ -16,16 +16,12 @@
   </head>
   <body>
     {% include "partial/_messages.html.twig" %}
-    <div class="container-fluid d-flex min-vh-100 p-0">
-      <div class="header col-2">
-        
-          {% include "partial/_navBar.html.twig" %}
-
-        </div>
-      
+    <div class="container-fluid d-flex min-vh-100 p-0"> 
+      <div class="header col-lg-2 col-xl-2">
+        {% include "partial/_navBar.html.twig" %}
+      </div>
       {% block body %}{% endblock %}
     </div>
-
     <script src="/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
