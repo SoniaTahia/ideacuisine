@@ -4,6 +4,7 @@
   box-sizing: border-box;
   font-family: "Electrolize", sans-serif; 
 }
+
 .container-fluid {
    background-color: rgb(163, 163, 163);
    width: 100vw;

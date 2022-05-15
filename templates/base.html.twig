@@ -16,11 +16,18 @@
   </head>
   <body>
     {% include "partial/_messages.html.twig" %}
-    <div class="container-fluid d-flex min-vh-100 p-0"> 
+    <div class="container-fluid d-flex min-vh-100 p-0">
       <div class="header col-lg-2 col-xl-2">
         {% include "partial/_navBar.html.twig" %}
       </div>
-      {% block body %}{% endblock %}
+      <div class="row d-flex justify-content-between m-0">
+        <div class="inside d-flex justify-content-center p-0 w-100">
+          {% block body %}{% endblock %}
+        </div>
+        <div class="footer cat col-12 col-sm-12 col-md-12 col-xl-12 m-0 p-0 mt-2 d-flex flex-column justify-content-center align-items-center policy">
+          {% include "partial/_footer.html.twig" %}
+        </div>
+      </div>
     </div>
     <script src="/js/bootstrap.bundle.min.js"></script>
   </body>

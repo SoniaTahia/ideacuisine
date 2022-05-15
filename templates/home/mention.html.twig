@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mentions Légales{% endblock %}
+
+{% block body %}
+
+  <div class="center col-10 mt-0 d-flex flex-column justify-content-center">
+    <div class="row cat m-0">
+
+      <h1 class="slogan mt-2 mb-5 mx-0 d-flex justify-content-center fw-lighter fst-italic">Mentions Légales</h1>
+
+      <p class="my-3 d-flex justify-content-center">Numéro d'inscription au registre du commerce et des sociétés
+        <br>Numéro individuel d'identification fiscale
+        <br>Conditions générales de vente (CGV) incluant le prix TTC en euros, les frais et date de livraison, les modalités de paiement, le service après-vente, le droit de rétractation, la durée de l'offre, le coût de la communication à distance
+      </p>
+      <a class="text-light text-center my-4" href="{{ path('home')}}">
+        <u>Retour à la page d'Accueil</a>
+
+      </div>
+    </div>
+
+  {% endblock %}
