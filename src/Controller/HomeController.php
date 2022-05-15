@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Entity\User;
 use App\Tool\DateTool;
 use App\Entity\Category;
 use App\Form\ContactType;
