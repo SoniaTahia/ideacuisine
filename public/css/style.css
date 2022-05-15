@@ -21,6 +21,13 @@
 
 .policy {
   font-size: 10px;
+  
+}
+
+.footer a {
+  text-decoration: none;
+  color: black;
+
 }
 
 h1 {
