@@ -106,31 +106,23 @@ class HomeController extends AbstractController
     #[Route('/condition', name: 'home_condition')]
     public function condition(): Response
     {
-        $user = $this->getUser();
-        return $this->render('home/condition.html.twig', [
-            'controller_name' => 'HomeController',
-            'user' => $user,
-          
+            return $this->render('home/condition.html.twig', [
+            'controller_name' => 'HomeController',          
         ]);
     }
 
     #[Route('/mention', name: 'home_mention')]
     public function mention(): Response
     {
-         $user = $this->getUser();
-        
-        return $this->render('home/mention.html.twig', [
+            return $this->render('home/mention.html.twig', [
             'controller_name' => 'HomeController',
-            'user' => $user,
         ]);
     }
 
     #[Route('/policy', name: 'home_policy')]
     public function policy(): Response
     {
-        $user = $this->getUser();
-
-        return $this->render('home/policy.html.twig', [
+            return $this->render('home/policy.html.twig', [
             'controller_name' => 'HomeController',
           
         ]);
