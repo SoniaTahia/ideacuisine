@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use DateTime;
-use App\Entity\User;
 use App\Tool\DateTool;
 use App\Entity\Category;
 use App\Form\ContactType;
@@ -20,6 +19,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\User;
 
 class HomeController extends AbstractController
 {
@@ -99,14 +99,17 @@ class HomeController extends AbstractController
         dd($category);
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
+            'user' => $user,
         ]);
     }
 
     #[Route('/condition', name: 'home_condition')]
     public function condition(): Response
     {
+        $user = $this->getUser();
         return $this->render('home/condition.html.twig', [
             'controller_name' => 'HomeController',
+            'user' => $user,
           
         ]);
     }
@@ -114,15 +117,19 @@ class HomeController extends AbstractController
     #[Route('/mention', name: 'home_mention')]
     public function mention(): Response
     {
+         $user = $this->getUser();
+        
         return $this->render('home/mention.html.twig', [
             'controller_name' => 'HomeController',
-          
+            'user' => $user,
         ]);
     }
 
     #[Route('/policy', name: 'home_policy')]
     public function policy(): Response
     {
+        $user = $this->getUser();
+
         return $this->render('home/policy.html.twig', [
             'controller_name' => 'HomeController',
           
