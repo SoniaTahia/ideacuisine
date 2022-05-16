@@ -74,26 +74,42 @@ h1 {
 
 @media only screen and (max-width:800px){
   
-  .container-fluid{
+.container-fluid{
     flex-direction: column;
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
   }
-  
-  .newNav{
+
+.newNav{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
 
-  .navItem{
+.navItem{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
+
+.picLink {
+  height: 75px !important;
+  width: 110px !important;
+
+}
  
+}
+
+@media only screen and (max-width:600px) {
+
+.cat {
+  display: flex;
+  flex-direction: column;
+
+}
+
 }
 
 
