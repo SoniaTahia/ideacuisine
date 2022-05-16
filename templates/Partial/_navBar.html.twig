@@ -1,5 +1,7 @@
+<!-- NavBar Générale -->
 <nav class="nav col-12 flex-column justify-content-between bg-light border-end h-100">
-  <div class="newNav">
+  <!-- NavBar sm img+titre -->
+  <div class="newNav d-flex justify-content-between">
     <a href="{{ path('home')}}"><img src="/upload/LOGO_FINAL_IDEA_CUISINE.png" class="logo pb-5 img-fluid ms-2" alt="logo"/></a>
     <h2 class="text-dark fst-italic d-lg-none text-end me-2">
       "NOS IDEES,
@@ -7,66 +9,145 @@
       VOTRE CUISINE"
     </h2>
   </div>
-  <ul class="navItem bg-transparent navbar-nav ms-5 pb-5">
-    <li class="nav-item">
-      <a class="nav-link active link-dark disable" aria-current="page" href="{{ path('home')}}">
-        <i class="bi bi-house-fill"></i>
-        Accueil</a >
-    </li>
-    <li class="nav-item dropend">
-      <a class="nav-link link-dark dropdown-toggle" data-bs-toggle="dropdown" href="{{ path('category_index') }}" role="button" aria-haspopup="true" aria-expanded="false">
-        <i class="bi bi-shop"></i>
-        Nos produits</a>
-      <div class="dropdown-menu">
-        {{ render(controller("App\\Controller\\NavBarController::navBarCats")) }}
+  <!-- NavBar sm Noire -->
+  <div class="d-flex justify-content-start d-lg-none">
+    <nav class="navbar navbar-dark bg-dark d-flex align-items-start w-100">
+      <div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse" id="navbarToggleExternalContent">
+          <div class="bg-dark p-4">
+            <ul class="navItem bg-transparent navbar-nav ms-5 pb-5">
+              <li class="nav-item">
+                <a class="nav-link active link-dark disable" aria-current="page" href="{{ path('home')}}">
+                  <i class="bi bi-house-fill"></i>
+                  Accueil</a >
+              </li>
+              <li class="nav-item dropend">
+                <a class="nav-link link-dark dropdown-toggle" data-bs-toggle="dropdown" href="{{ path('category_index') }}" role="button" aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-shop"></i>
+                  Nos produits</a>
+                <div class="dropdown-menu">
+                  {{ render(controller("App\\Controller\\NavBarController::navBarCats")) }}
+                </div>
+              </li>
+              {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                  <a class="nav-link link-dark" href="{{ path('admin') }}">
+                    <i class="bi bi-gear"></i>
+                    Page Admin</a>
+                </li>
+              {% endif %}
+              {% if app.user %}
+                <li class="nav-item">
+                  <a class="nav-link link-dark" href="{{ path('user_profile', {'id': user.id}) }}">
+                    <i class="bi bi-person-circle"></i>
+                    Mon Compte</a>
+                </li>
+                <li>
+                  <a class="nav-link link-dark" href="{{ path('cart_show') }}">
+                    <i class="bi bi-cart3"></i>
+                    Mon panier</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link link-dark" href="{{ path('home_contact_user')}}">
+                    <i class="bi bi-envelope"></i>
+                    Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link link-dark" href="{{ path('logout') }}">
+                    <i class="bi bi-box-arrow-left"></i>
+                    Deconnexion</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link link-dark" href="{{ path('home_contact_info')}}">
+                    <i class="bi bi-envelope"></i>
+                    Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link link-dark" href="{{ path('app_register')}}">
+                    <i class="bi bi-person-plus"></i>
+                    Inscription</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
       </div>
-    </li>
-    {% if is_granted('ROLE_ADMIN') %}
+      {% if app.user %}
+        <h6 class="nav-link link-light text-light d-lg-none d-flex justify-content-end">{{ user.firstname }}
+          {{ user.name }}</h6>
+      {% else %}
+        <a class="nav-link link-light text-light d-lg-none d-flex justify-content-end" href="{{ path('login') }}">
+          Connexion<i class="bi bi-box-arrow-in-right ms-1"></i>
+        </a >
+      {% endif %}
+    </nav>
+  </div>
+  <div class="d-none d-lg-block">
+    <ul class="navItem bg-transparent navbar-nav ms-5 pb-5">
       <li class="nav-item">
-        <a class="nav-link link-dark" href="{{ path('admin') }}">
-          <i class="bi bi-gear"></i>
-          Page Admin</a>
+        <a class="nav-link active link-dark disable" aria-current="page" href="{{ path('home')}}">
+          <i class="bi bi-house-fill"></i>
+          Accueil</a >
       </li>
-    {% endif %}
-    {% if app.user %}
-      <li class="nav-item">
-        <a class="nav-link link-dark" href="{{ path('user_profile', {'id': user.id}) }}">
-          <i class="bi bi-person-circle"></i>
-          Mon Compte</a>
+      <li class="nav-item dropend">
+        <a class="nav-link link-dark dropdown-toggle" data-bs-toggle="dropdown" href="{{ path('category_index') }}" role="button" aria-haspopup="true" aria-expanded="false">
+          <i class="bi bi-shop"></i>
+          Nos produits</a>
+        <div class="dropdown-menu">
+          {{ render(controller("App\\Controller\\NavBarController::navBarCats")) }}
+        </div>
       </li>
-      <li>
-        <a class="nav-link link-dark" href="{{ path('cart_show') }}">
-          <i class="bi bi-cart3"></i>
-          Mon panier</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link link-dark" href="{{ path('home_contact_user')}}">
-          <i class="bi bi-envelope"></i>
-          Contact</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link link-dark" href="{{ path('logout') }}">
-          <i class="bi bi-box-arrow-left"></i>
-          Deconnexion</a>
-      </li>
-    {% else %}
-      <li class="nav-item">
-        <a class="nav-link link-dark" href="{{ path('home_contact_info')}}">
-          <i class="bi bi-envelope"></i>
-          Contact</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link link-dark" href="{{ path('app_register')}}">
-          <i class="bi bi-person-plus"></i>
-          Inscription</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link link-dark" href="{{ path('login') }}">
-          <i class="bi bi-box-arrow-in-right"></i>
-          Connexion</a >
-      </li>
-    {% endif %}
-  </ul>
+      {% if is_granted('ROLE_ADMIN') %}
+        <li class="nav-item">
+          <a class="nav-link link-dark" href="{{ path('admin') }}">
+            <i class="bi bi-gear"></i>
+            Page Admin</a>
+        </li>
+      {% endif %}
+      {% if app.user %}
+        <li class="nav-item">
+          <a class="nav-link link-dark" href="{{ path('user_profile', {'id': user.id}) }}">
+            <i class="bi bi-person-circle"></i>
+            Mon Compte</a>
+        </li>
+        <li>
+          <a class="nav-link link-dark" href="{{ path('cart_show') }}">
+            <i class="bi bi-cart3"></i>
+            Mon panier</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" href="{{ path('home_contact_user')}}">
+            <i class="bi bi-envelope"></i>
+            Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" href="{{ path('logout') }}">
+            <i class="bi bi-box-arrow-left"></i>
+            Deconnexion</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link link-dark" href="{{ path('home_contact_info')}}">
+            <i class="bi bi-envelope"></i>
+            Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" href="{{ path('app_register')}}">
+            <i class="bi bi-person-plus"></i>
+            Inscription</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" href="{{ path('login') }}">
+            <i class="bi bi-box-arrow-in-right"></i>
+            Connexion</a >
+        </li>
+      {% endif %}
+    </ul>
+  </div>
   <div>
     <ul class="bg-transparent navbar-nav ms-3 pt-5">
       <div class="d-none d-lg-block">
@@ -94,10 +175,7 @@
       </div>
     </ul>
   </div>
-  <a class="nav-link link-dark d-lg-none w-100 d-flex justify-content-end me-5 pe-5" href="{{ path('login') }}">
-    Connexion<i class="bi bi-box-arrow-in-right ms-1"></i>
-  </a >
-  <div class="navIcon d-lg-none w-100 d-flex justify-content-around">
+  <div class="navIcon d-lg-none w-100 d-flex justify-content-between">
     <i class="bi bi-telephone"></i>
     <i class="bi bi-mailbox"></i>
     <a href="https://fr-fr.facebook.com/Idea.Cuisine/">
