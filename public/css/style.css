@@ -107,7 +107,30 @@ h1 {
 .cat {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
 
+.register {
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.category1 {
+  padding-right: 50%;
+}
+
+.category2 {
+  padding-left: 50%;
+}
+
+.cardAdmin {
+  width: 200px;
 }
 
 }

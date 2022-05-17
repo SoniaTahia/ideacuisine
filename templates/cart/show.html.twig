@@ -48,9 +48,9 @@
         </tfoot>
       </tbody>
     </table>
-    <a class="btn btn-dark my-3 w-25" href="{{ path('product_index') }}">Continuer mes achats</a>
+    <a class="btn btn-dark my-3 w-auto" href="{{ path('product_index') }}">Continuer mes achats</a>
     {% if cartProducts != [] %}
-      <a class="btn btn-danger mt-3 w-25" href="{{ path('invoice_new') }}">Valider mon panier</a>
+      <a class="btn btn-danger mt-3 w-auto" href="{{ path('invoice_new') }}">Valider mon panier</a>
     {% endif %}
   </div>
 

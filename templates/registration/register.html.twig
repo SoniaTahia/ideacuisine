@@ -12,27 +12,29 @@
       <h1 class="slogan mt-2 mb-5 fw-lighter fst-italic d-flex justify-content-center ">
         Inscription
       </h1>
+      
       {{ form_start(registrationForm) }}
 
-      <div class="d-flex w-100">
+      <div class="d-flex d-none d-md-block w-100">
         <div class="w-50">{{ form_row(registrationForm.name) }}</div>
         <div class="w-50 ms-5">{{ form_row(registrationForm.firstname) }}</div>
       </div>
-      <div class="w-100 me-3">{{ form_row(registrationForm.adress) }}</div>
-      <div class="d-flex w-100">
+      <div class="w-100 d-none d-md-block me-3">{{ form_row(registrationForm.adress) }}</div>
+      <div class="d-flex d-none d-md-block w-100">
         <div class="w-50">{{ form_row(registrationForm.postCode) }}</div>
         <div class="w-50 ms-5">{{ form_row(registrationForm.town) }}</div>
         <div class="w-50 ms-5">{{ form_row(registrationForm.phone) }}</div>
       </div>
-      <div class="d-flex w-100">
+      <div class="d-flex d-none d-md-block w-100">
         <div class="w-50">{{ form_row(registrationForm.email) }}</div>
         <div class="w-50 ms-5">{{ form_row(registrationForm.plainPassword) }}</div>
       </div>
-      
-      <div class="d-flex justify-content-center ">
+
+      <div class="d-flex d-none d-md-block justify-content-center ">
         <button type="submit" class="btn btn-danger my-5 w-50">S'inscrire</button>
       </div>
       {{ form_end(registrationForm) }}
+
     </div>
   </div>
 

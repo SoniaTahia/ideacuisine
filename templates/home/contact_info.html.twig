@@ -5,17 +5,17 @@
 {% block body %}
 
   <div class="center col-10 mt-0 d-flex flex-column justify-content-between w-100">
-    <div class="row cat d-flex justify-content-center m-0">
+    <div class="row cat d-flex justify-content-center  align-items-center m-0">
 
       <h1 class="slogan mt-2 mb-5 mx-0 d-flex justify-content-center fw-lighter fst-italic">Information</h1>
 
       <p class="my-3 d-flex justify-content-center">Pour nous contacter ou commander un article, nous vous invitons à vous connecter à votre compte en cliquant sur ce lien:
       </p>
-      <a class="btn btn-danger w-25" href="{{ path('login') }}">Connexion</a >
+      <a class="btn btn-danger w-auto" href="{{ path('login') }}">Connexion</a >
 
       <p class="my-3 d-flex justify-content-center">Si vous n'avez pas encore de compte, nous vous invitons à le créer en cliquant sur ce lien:
       </p>
-      <a class="btn btn-danger w-25" href="{{ path('app_register')}}">Inscription</a>
+      <a class="btn btn-danger w-auto" href="{{ path('app_register')}}">Inscription</a>
 
     </div>
   </div>

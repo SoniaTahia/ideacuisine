@@ -3,9 +3,9 @@
 {% block title %}Liste des categories{% endblock %}
 
 {% block body %}
-  <div class="center col-10 mt-0 d-flex flex-column align-items-center">
+  <div class="center d-flex flex-column align-items-center">
     <h1 class="slogan mt-2 mb-5 mx-0 d-flex justify-content-center fw-lighter fst-italic">Liste des categories</h1>
-    <table class="table table-hover table-light table-bordered border-dark border border-5 w-75 h-50">
+    <table class="table table-hover table-light table-bordered border-dark border border-5 w-auto h-50">
       <thead>
         <tr>
           <th scope="col" class="text-center">
@@ -20,7 +20,7 @@
             <td class="text-center mt-5">{{ category.id }}</td>
             <td class="text-center">{{ category.name }}</td>
             <td class="d-flex justify-content-evenly align-items-center">
-              <a class="btn btn-dark me-2 w-25" href="{{ path('category_edit', {'id': category.id}) }}" role=" button">Modifier</a>
+              <a class="btn btn-dark me-2 w-auto" href="{{ path('category_edit', {'id': category.id}) }}" role=" button">Modifier</a>
               {{ include('category/_delete_form.html.twig') }}
             </td>
           </tr>
@@ -34,6 +34,5 @@
     <a class="btn btn-success w-25 mt-5" href="{{ path('category_new') }}">Ajouter une categorie</a>
     <a class="my-3 text-dark" href="{{ path('admin') }}">Retour à la page admin</a>
   </div>
-
 
 {% endblock %}
