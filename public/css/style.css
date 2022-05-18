@@ -97,15 +97,26 @@ h1 {
 .picLink {
   height: 75px !important;
   width: 110px !important;
-
 }
- 
+
+.admin {
+  margin-bottom: 20px;
+}
+.cardAdmin {
+  width: 200px;
+}
+
 }
 
 @media only screen and (max-width:600px) {
 
 .cat {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin {
   flex-direction: column;
   align-items: center;
 }
@@ -129,8 +140,8 @@ h1 {
   padding-left: 50%;
 }
 
-.cardAdmin {
-  width: 200px;
+.detailProduct {
+  flex-direction: column;
 }
 
 }

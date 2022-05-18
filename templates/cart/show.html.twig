@@ -5,24 +5,24 @@
 {% block body %}
   <div class="center col-10 mt-0 d-flex flex-column align-items-center">
     <h1 class="slogan mt-2 mb-5 mx-0 d-flex justify-content-center fw-lighter fst-italic">Mon Panier</h1>
-    <table class="table table-hover table-light table-bordered border-dark border border-5 w-100 m-3">
+    <table class="table table-responsive table-hover table-light table-bordered border-dark border border-5 mx-1">
       <thead>
         <tr>
-          <th scope="col">
+          <th class="d-none d-md-block" scope="col">
             Référence</th>
           <th scope="col">
             Désignation</th>
           <th scope="col">Prix</th>
-          <th scope="col">Quantité</th>
+          <th class="d-none d-md-block" scope="col">Quantité</th>
         </tr>
       </thead>
       <tbody>
         {% for row in cartProducts %}
           <tr class="table-active">
-            <td>{{ row.product.reference }}</td>
+            <td class="d-none d-md-block">{{ row.product.reference }}</td>
             <td>{{ row.product.name }}</td>
             <td>{{ row.product.price|price }}</td>
-            <td class="d-flex justify-content-center">
+            <td class="d-flex justify-content-center d-none d-md-block">
               <a class="mx-2" href="{{ path('cart_less', {'product' : row.product.id})}}">
                 <i class="icons bi bi-dash-circle"></i>
               </a>
@@ -50,7 +50,7 @@
     </table>
     <a class="btn btn-dark my-3 w-auto" href="{{ path('product_index') }}">Continuer mes achats</a>
     {% if cartProducts != [] %}
-      <a class="btn btn-danger mt-3 w-auto" href="{{ path('invoice_new') }}">Valider mon panier</a>
+      <a class="btn btn-danger m-3 w-auto" href="{{ path('invoice_new') }}">Valider mon panier</a>
     {% endif %}
   </div>
 

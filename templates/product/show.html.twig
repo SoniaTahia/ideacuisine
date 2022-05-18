@@ -6,8 +6,8 @@
 {% block body %}
 
   <div class="center col-10 m-0 d-flex flex-column bg-light w-100 h-100">
-    <h1 class="text-secondary d-flex justify-content-center my-2">{{ product.name }}</h1>
-    <div class="d-flex justify-content-around w-100 mt-2">
+    <h1 class="text-secondary d-flex justify-content-center my-5">{{ product.name }}</h1>
+    <div class="detailProduct d-flex justify-content-around w-100 mt-2">
       {% if product.images is not empty %}
         <div class="d-flex align-items-start">
           <div class="d-flex justify-content-center align-items-center bg-light ms-3 me-1 w-75 h-75 border-dark border border-1">
@@ -27,7 +27,7 @@
 
       {% if is_granted('ROLE_ADMIN') %}
         <div class="d-flex flex-column justify-content-center">
-          <a class="my-3 btn btn-dark" href="{{ path('product_edit', {'id': product.id}) }}">Modifier</a>
+          <a class="my-3 btn btn-dark w-auto" href="{{ path('product_edit', {'id': product.id}) }}">Modifier</a>
           {{ include('product/_delete_form.html.twig') }}
         </div>
       {% endif %}

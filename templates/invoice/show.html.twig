@@ -5,7 +5,7 @@
 {% block body %}
 
   <div class="center col-10 mt-3 d-flex flex-column align-items-center justify-content-center">
-    <div class="card w-75 pb-5" style="width: 36rem;">
+    <div class="card w-100 pb-5" style="width: 36rem;">
 
       <!--logo+date-->
       <div class="d-flex justify-content-between align-items-center m-2">
@@ -40,21 +40,21 @@
         <table class="table table-hover table-light table-bordered border-dark border border-2 w-100">
           <thead>
             <tr>
-              <th scope="col" class="text-center">
+              <th scope="col" class="text-center d-none d-md-block">
                 Référence</th>
               <th scope="col" class="text-center w-50">
                 Désignation</th>
               <th scope="col" class="text-center">Prix unitaire</th>
-              <th scope="col" class="text-center">Quantité</th>
+              <th scope="col" class="text-center d-none d-md-block">Quantité</th>
             </tr>
           </thead>
           <tbody class="table-bordered border-dark">
           {% for row in purchases %}
             <tr class="table-active border-dark">
-              <th scope="row" class="text-center">{{ row.product.reference }}</th>
+              <th scope="row" class="text-center d-none d-md-block">{{ row.product.reference }}</th>
               <td class="text-center">{{ row.product.name }}</td>
               <td class="text-center">{{ row.unitPrice|price }}</td>
-              <td class="text-center">
+              <td class="text-center d-none d-md-block">
                 {{ row.quantity }}
               </td>
             </tr>
