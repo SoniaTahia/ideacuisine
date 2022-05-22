@@ -15,19 +15,19 @@
 
       {{ form_start(registrationForm) }}
 
-      <div class="d-flex w-100">
-        <div class="w-50">{{ form_row(registrationForm.name) }}</div>
-        <div class="w-50 ms-5">{{ form_row(registrationForm.firstname) }}</div>
+      <div class="regist d-flex w-100">
+        <div class="registLine w-50">{{ form_row(registrationForm.name) }}</div>
+        <div class="registLine w-50 ms-5">{{ form_row(registrationForm.firstname) }}</div>
       </div>
       <div class="w-100 me-3">{{ form_row(registrationForm.adress) }}</div>
-      <div class="d-flex w-100">
-        <div class="w-50">{{ form_row(registrationForm.postCode) }}</div>
-        <div class="w-50 ms-5">{{ form_row(registrationForm.town) }}</div>
-        <div class="w-50 ms-5">{{ form_row(registrationForm.phone) }}</div>
+      <div class="regist d-flex w-100">
+        <div class="registLine w-50">{{ form_row(registrationForm.postCode) }}</div>
+        <div class="registLine w-50 ms-5">{{ form_row(registrationForm.town) }}</div>
+        <div class="registLine w-50 ms-5">{{ form_row(registrationForm.phone) }}</div>
       </div>
-      <div class="d-flex w-100">
-        <div class="w-50">{{ form_row(registrationForm.email) }}</div>
-        <div class="w-50 ms-5">{{ form_row(registrationForm.plainPassword) }}</div>
+      <div class="regist d-flex w-100">
+        <div class="registLine w-50">{{ form_row(registrationForm.email) }}</div>
+        <div class="registLine w-50 ms-5">{{ form_row(registrationForm.plainPassword) }}</div>
       </div>
 
       <div class="d-flex justify-content-center ">
