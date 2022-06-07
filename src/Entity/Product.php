@@ -37,7 +37,10 @@ class Product
     #[ORM\JoinColumn(onDelete: "CASCADE")]
     private $images;
 
-    public function __construct()
+    #[ORM\Column(type: 'boolean')]
+    private $active;
+
+        public function __construct()
     {
         $this->images = new ArrayCollection();
     }
@@ -145,6 +148,18 @@ class Product
                 $image->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

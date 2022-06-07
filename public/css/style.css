@@ -119,6 +119,7 @@ h1 {
 .admin {
   flex-direction: column;
   align-items: center;
+  max-width: 100%;
 }
 
 .regist {
@@ -128,8 +129,7 @@ h1 {
   }
 
 .registLine {
-  margin: 0;
-  width: 100%;
+ margin: 0;
 }
 
 .button {

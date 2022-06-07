@@ -81,6 +81,50 @@ class ProductController extends AbstractController
         ]);   
 }
 
+    #[Route('/list/{page}',
+    name: 'product_list', 
+    defaults: ['page' => 1], 
+    requirements: ["page" => "\d+"],
+    methods: ['GET'])]
+        public function list(ProductRepository $productRep, int $page): Response
+        {
+        $user = $this->getUser();
+
+        $productPerPage = 8;
+        $productsCount = $productRep->count([]);
+        $pages = [];
+        $pageCounter = 0;
+        for ($i = 0; $i < $productsCount; $i += $productPerPage) {
+            $pageCounter++;
+            $pages[] = $pageCounter;
+        }
+        if ($page > $productsCount / $productPerPage) {
+            $page = $pageCounter;
+        }
+
+        if ($page < 1) {
+            $page = 1;
+        }
+        
+        $products = $productRep->findBy(
+            [],
+            [
+                'id' => "ASC",
+            ],
+            $productPerPage,
+            ($page - 1) * $productPerPage,
+        );
+        
+        return $this->render('product/list.html.twig', [
+            'products' => $products,
+            'actualPage' => $page,
+            'pages' => $pages,
+            'lastPage' => $pageCounter,
+            'user' => $user,
+        ]);
+    }
+
+
     #[Route('/new', name: 'product_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {

@@ -11,45 +11,48 @@
       </h1>
 
       {% for product in products %}
-        <div class="product-card bg-dark text-dark bg-opacity-10 mt-1 mb-1 mx-4 rounded-3" style="max-width: 20rem;">
-          <div class="product-card">
-            <h5>{{ product.category.name }}</h5>
-          </div>
-          <div class="card-body d-flex flex-column align-items-center p-2">
-            <h6>{{ product.name }}</h6>
-            {% if product.price %}
-              <p class="card-title">Prix :
-                {{ product.price|price }}
-                TND</p>
-            {% else %}
-              <h6 class="card-title">Prix : Sur Devis</h6>
-            {% endif %}
-            {#{% if product.images != [] %}#}
-            {% if product.images is not empty %}
-              <img src="/upload/{{ product.images.0.picture }}" alt="{{ product.images.0.alt }}" class="productPic2 img-fluid">
-            {% else %}
-              Pas d'image
-            {% endif %}
-            <div class="d-flex w-100 d-flex justify-content-evenly">
-              <a class="btn btn-light btn-sm w-75" style="max-width: 5rem;" href="{{ path('product_show', {'id': product.id}) }}">Voir</a>
-              {% if product.stock != 0 %}
-                {% if app.user %}
-                  <a class="btn btn-danger btn-sm w-75" style="max-width: 5rem;" href="{{ path('cart_add', {'product': product.id}) }}">Acheter</a>
-                {% else %}
-                  <a class="btn btn-danger btn-sm w-75" style="max-width: 5rem;" href="{{ path('home_contact_info')}}">Acheter</a>
-                {% endif %}
+        {% if product.active == false %}
+          <div class="product-card bg-dark text-dark bg-opacity-10 mt-1 mb-1 mx-4 rounded-3" style="max-width: 20rem;">
+            <div class="product-card">
+              <h5>{{ product.category.name }}</h5>
+            </div>
+            <div class="card-body d-flex flex-column align-items-center p-2">
+              <h6>{{ product.name }}</h6>
+              {% if product.price %}
+                <p class="card-title">Prix :
+                  {{ product.price|price }}
+                  TND</p>
               {% else %}
-                <tr>
-                  <td colspan="5">Produit en rupture de stock</td>
-                </tr>
+                <h6 class="card-title">Prix : Sur Devis</h6>
               {% endif %}
+              {#{% if product.images != [] %}#}
+              {% if product.images is not empty %}
+                <img src="/upload/{{ product.images.0.picture }}" alt="{{ product.images.0.alt }}" class="productPic2 img-fluid">
+              {% else %}
+                Pas d'image
+              {% endif %}
+              <div class="d-flex w-100 d-flex justify-content-evenly">
+                <a class="btn btn-light btn-sm w-75" style="max-width: 5rem;" href="{{ path('product_show', {'id': product.id}) }}">Voir</a>
+                {% if product.stock != 0 %}
+                  {% if app.user %}
+                    <a class="btn btn-danger btn-sm w-75" style="max-width: 5rem;" href="{{ path('cart_add', {'product': product.id}) }}">Acheter</a>
+                  {% else %}
+                    <a class="btn btn-danger btn-sm w-75" style="max-width: 5rem;" href="{{ path('home_contact_info')}}">Acheter</a>
+                  {% endif %}
+                {% else %}
+                  <tr>
+                    <td colspan="5">Produit en rupture de stock</td>
+                  </tr>
+                {% endif %}
+              </div>
             </div>
           </div>
-        </div>
+        {% endif %}
       {% else %}
         <tr>
           <td colspan="5">Aucun produit enregistré</td>
         </tr>
+
       {% endfor %}
 
       <div class="d-flex justify-content-evenly align-items-center p-0 mt-2">

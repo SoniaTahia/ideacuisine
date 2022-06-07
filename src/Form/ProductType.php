@@ -88,6 +88,12 @@ class ProductType extends AbstractType
                 'required' => true,
                 
             ])
+            ->add('active', ChoiceType::class, [
+                'choices' => [
+                    'active' => false,
+                    'inactive' => true,
+                ],
+            ])
         ;
     }
 
